@@ -1,0 +1,2 @@
+;
+var member_set
