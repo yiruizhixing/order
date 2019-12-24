@@ -42,8 +42,6 @@ def login():
         resp['msg'] = "账号异常，请联系管理员~"
         return jsonify(resp)
 
-
-
     response = make_response( json.dumps( resp ) )
     response.set_cookie(app.config['AUTH_COOKIE_NAME'], "%s#%s"%( UserService.geneAuthCode( user_info ), user_info.uid ))
     return response
@@ -76,6 +74,7 @@ def edit():
     db.session.commit()
     return jsonify(resp)
 
+
 # #密码修改
 @route_user.route( "/reset-pwd" ,methods = ["GET","POST"])
 def resetPwd():
@@ -100,7 +99,7 @@ def resetPwd():
         return jsonify(resp)
 
     user_info = g.current_user
-    if user_info.login_pwd != UserService.genePwd(old_password,user_info.login_salt):  # # 密码真实性判断 与数据库记录比对
+    if user_info.login_pwd != UserService.genePwd(old_password, user_info.login_salt):  # # 密码真实性判断 与数据库记录比对
         resp['code'] = -1
         resp['msg'] = "请输入正确的原登录密码~3~"
         return jsonify(resp)
