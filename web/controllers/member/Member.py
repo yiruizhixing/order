@@ -72,6 +72,9 @@ def set():
         if not info:
             return redirect(reback_url)
 
+        if info.status !=1:
+            return redirect(reback_url)
+
         resp_data['info'] = info
         resp_data['current'] = 'index'
         return ops_render("member/set.html", resp_data)
@@ -101,3 +104,38 @@ def set():
 @route_member.route( "/comment" )
 def comment():
     return ops_render( "member/comment.html" )
+
+
+# 删除恢复会员
+@route_member.route("/ops", methods=["POST"])
+def ops():
+    resp = {'code': 200, 'msg': '操作成功', 'data': {}}
+    req = request.values
+
+    id = req['id'] if 'id' in req else 0
+    act =req['act'] if 'act' in req else 0
+
+    if not id:
+        resp['code'] = -1
+        resp['msg'] = "请选择要操作的账号~"
+        return jsonify(resp)
+    if act not in ['remove','recover']:
+        resp['code'] = -1
+        resp['msg'] = "操作有误，请重试~"
+        return jsonify(resp)
+
+    member_info = Member.query.filter_by(id=id).first()
+    if not member_info:
+        resp['code'] = -1
+        resp['msg'] = "指定会员不存在~"
+        return jsonify(resp)
+    if act == "remove":
+        member.status =0
+    elif act == "recover":
+        member.status = 1
+
+    member_info.updated_time = getCurrentDate()
+    db.session.add(member_info)
+    db.session.commit()
+
+    return jsonify(resp)

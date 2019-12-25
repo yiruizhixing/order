@@ -24,7 +24,7 @@ var member_set_ops = {
                 id:$(".wrap_member_set input[name=id]").val()
             };
 
-            $ajax({
+            $.ajax({
                 url:common_ops.buildUrl("/member/set"),
                 type:'POST',
                 data:data,
