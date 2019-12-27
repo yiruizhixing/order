@@ -6,7 +6,7 @@ var member_set_ops = {
     eventBind:function () {
         $(".wrap_member_set .save").click(function () {
             var btn_target = $(this);
-            if( btn.hasClass("disabled")){
+            if( btn_target.hasClass("disabled")){
                 common_ops.alert("正在处理，请不要得复提交");
                 return;
             }

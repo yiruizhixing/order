@@ -57,10 +57,11 @@ def info():
     resp_data['current'] = 'index'
     return ops_render( "member/info.html", resp_data)
 
+
 # 修改会员信息
 @route_member.route("/set", methods=["GET", "POST"])
 def set():
-    if request.method=="GET":
+    if request.method == "GET":
         resp_data = {}
         req = request.args
         id = int(req.get("id", 0))
@@ -72,14 +73,14 @@ def set():
         if not info:
             return redirect(reback_url)
 
-        if info.status !=1:
+        if info.status != 1:
             return redirect(reback_url)
 
         resp_data['info'] = info
         resp_data['current'] = 'index'
         return ops_render("member/set.html", resp_data)
 
-    resp = { 'code': 200, 'msg': '操作成功', 'data': {}}
+    resp = {'code': 200, 'msg': '操作成功', 'data': {}}
     req = request.values
     id = req['id'] if 'id' in req else 0
     nickname = req['nickname'] if 'nickname' in req else 0
@@ -91,7 +92,7 @@ def set():
     member_info = Member.query.filter_by(id=id).first()
     if not member_info:
         resp['code'] = -1
-        resp['msg'] = "指定会员不存在~"
+        resp['msg'] = "指定会员不存在123~"
         return jsonify(resp)
 
     member_info.nickname = nickname
@@ -101,6 +102,7 @@ def set():
     return jsonify( resp )
 
 
+# 会员评论
 @route_member.route( "/comment" )
 def comment():
     return ops_render( "member/comment.html" )
@@ -130,12 +132,11 @@ def ops():
         resp['msg'] = "指定会员不存在~"
         return jsonify(resp)
     if act == "remove":
-        member.status =0
+        member_info.status =0
     elif act == "recover":
-        member.status = 1
+        member_info.status = 1
 
     member_info.updated_time = getCurrentDate()
     db.session.add(member_info)
     db.session.commit()
-
     return jsonify(resp)
