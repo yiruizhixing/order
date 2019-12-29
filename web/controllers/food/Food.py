@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, redirect, jsonify,g,render_template
+from flask import Blueprint, request, redirect, jsonify, g, render_template
 from common.libs.Helper import ops_render,getCurrentDate
 from application import app, db
 from common.models.food.FoodCat import FoodCat
@@ -18,10 +18,23 @@ def info():
 def set():
     return render_template( "food/set.html" )
 
-
+# 分类列表    不用分页
 @route_food.route( "/cat" )
 def cat():
-    return ops_render( "food/cat.html" )
+    resp_data = {}
+    req = request.values
+    query = FoodCat.query
+
+    # 分类项目有效无效查询
+    if 'status' in req and int(req['status']) > -1:
+        query = query.filter(FoodCat.status == int(req['status']))
+
+    list = query.order_by( FoodCat.weight.desc(), FoodCat.id.desc() ).all()     # 使用权重、id倒序排  # .all()  为取出所有的数据 然后存到列表list
+    resp_data['list'] = list
+    resp_data['search_con'] = req
+    resp_data['status_mapping'] = app.config['STATUS_MAPPING']
+    resp_data['current'] = 'cat'
+    return ops_render( "food/cat.html", resp_data )
 
 
 # 菜品分类设置
@@ -67,6 +80,40 @@ def catSet():
     db.session.add( model_food_cat )
     db.session.commit()
     return jsonify( resp )
+
+# 删除恢复用户操作
+@route_food.route("/ops",methods = ["POST"])
+def ops():
+    resp = {'code': 200, 'msg': '操作成功', 'data': ''}
+    req = request.values
+
+    id = req['id'] if 'id' in req else 0
+    act = req['act'] if 'act' in req else ''
+    if not id:
+        resp['code'] = -1
+        resp['msg'] = "请选择要操作的账号"
+        return jsonify(resp)
+    if act not in ['remove', 'recover']:
+        resp['code'] = -1
+        resp['msg'] = "操作有误，请重试"
+        return jsonify(resp)
+
+    food_cat_info = FoodCat.query.filter_by(uid=id).first()
+    if not food_cat_info:
+        resp['code'] = -1
+        resp['msg'] = "指定账号不存在，请重试"
+        return jsonify(resp)
+    if act == "remove":
+        food_cat_info.status = 0
+    elif act =="recover":
+        food_cat_info.status = 1
+
+    # 提交信息
+    food_cat_info.update_time = getCurrentDate()
+    db.session.add(food_cat_info)
+    db.session.commit()
+    return jsonify(resp)
+
 
 
 
