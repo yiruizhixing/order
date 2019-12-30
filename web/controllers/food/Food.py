@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, request, redirect, jsonify, g, render_template
-from common.libs.Helper import ops_render,getCurrentDate
+from common.libs.Helper import ops_render, getCurrentDate
 from application import app, db
 from common.models.food.FoodCat import FoodCat
 route_food = Blueprint( 'food_page',__name__ )
+
 
 @route_food.route( "/index" )
 def index():
@@ -16,7 +17,8 @@ def info():
 
 @route_food.route( "/set" )
 def set():
-    return render_template( "food/set.html" )
+    return ops_render( "food/set.html" )
+
 
 # 分类列表    不用分页
 @route_food.route( "/cat" )
@@ -81,8 +83,9 @@ def catSet():
     db.session.commit()
     return jsonify( resp )
 
-# 删除恢复用户操作
-@route_food.route("/ops",methods = ["POST"])
+
+# 删除恢复菜品分类操作
+@route_food.route("/cat-ops", methods=["POST"])
 def ops():
     resp = {'code': 200, 'msg': '操作成功', 'data': ''}
     req = request.values
@@ -98,14 +101,14 @@ def ops():
         resp['msg'] = "操作有误，请重试"
         return jsonify(resp)
 
-    food_cat_info = FoodCat.query.filter_by(uid=id).first()
+    food_cat_info = FoodCat.query.filter_by(id=id).first()
     if not food_cat_info:
         resp['code'] = -1
         resp['msg'] = "指定账号不存在，请重试"
         return jsonify(resp)
     if act == "remove":
         food_cat_info.status = 0
-    elif act =="recover":
+    elif act == "recover":
         food_cat_info.status = 1
 
     # 提交信息
