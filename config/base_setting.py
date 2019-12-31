@@ -5,6 +5,10 @@ SQLALCHEMY_ECHO = False
 
 AUTH_COOKIE_NAME = "imooc_food"
 
+APP = {
+    'domain':"http://192.168.244.6:8999"
+}
+
 # 过滤url 不验证登录状态
 IGNORE_URLS = [
     "^/user/login",
@@ -31,4 +35,11 @@ STATUS_MAPPING = {
 MINA_APP ={
     'appid':'wx21ff50521f0e437a',
     'appkey':'12cf2ebf0ae711a1c5ef06a7cda37300'
+}
+
+
+UPLOAD = {
+    'ext':['jpg','gif','bmp','jpeg','png'],
+    'prefix_path':'/static/upload/',
+    'prefix_url':'/static/upload/'
 }
