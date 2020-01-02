@@ -29,6 +29,21 @@ def ueditor():
         return listImage()
 
 
+# 无刷新上传照片，封图
+@route_upload.route("/pic", methods = ["GET","POST"])
+def uploadPic():
+    file_target = request.files       # 获取上传的表单
+    upfile = file_target['pic'] if 'pic' in file_target else None    # 获取上传的文件
+    callback_target = "window.parent.upload"
+    if upfile is None:
+        return "<script type='text/javascript'>{0}.error('{1}')</script>".format(callback_target, "上传失败")
+    ret = UploadService.uploadByFile(upfile)    # 上传图片
+    if ret['code'] != 200:
+        return "<script type='text/javascript'>{0}.error('{1}')</script>".format(callback_target, "上传失败" + ret['msg'])
+    return "<script type='text/javascript'>{0}.success('{1}')</script>".format(callback_target, ret['data']['file_key'])
+
+
+
 def uploadImage():
     resp = {'state':'SUCCESS','url':'','title':'','orginal':''}
     file_target = request.files
@@ -45,6 +60,8 @@ def uploadImage():
     resp['url'] = UrlManager.buildImageUrl(ret['data']['file_key'])
     return jsonify(resp)
 
+
+# 在线图片列表展示
 def listImage():
     resp = {'state': 'SUCCESS', 'list': [], 'start': 0, 'total': 0}
 

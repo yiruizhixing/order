@@ -3,6 +3,9 @@ from flask import Blueprint, request, redirect, jsonify, g, render_template
 from common.libs.Helper import ops_render, getCurrentDate
 from application import app, db
 from common.models.food.FoodCat import FoodCat
+from common.models.food.Food import Food
+from common.models.food.foodStockChangeLog import FoodStockChangeLog
+from decimal import Decimal
 route_food = Blueprint( 'food_page',__name__ )
 
 
@@ -15,9 +18,91 @@ def info():
     return ops_render( "food/info.html" )
 
 
-@route_food.route( "/set" )
+# 菜品详情编辑
+@route_food.route( "/set",methods=["GET", "POST"] )
 def set():
-    return ops_render( "food/set.html" )
+    if request.method == "GET":
+        resp_data = {}
+        cat_list = FoodCat.query.all()
+        resp_data['cat_list'] = cat_list
+        resp_data['current'] = 'index'
+        return ops_render("food/set.html", resp_data)
+
+    # 下面是POST处理
+    resp = {'code': 200, 'msg': '操作成功', 'data': ''}
+    req = request.values                                    # 参数多时用values ,参数少时用args
+    id = req['id'] if 'id' in req else 0                    # 获取当前用户id
+    cat_id = req['cat_id'] if 'cat_id' in req else ''
+    name = req['name'] if 'name' in req else ''
+    price = req['price'] if 'price' in req else ''
+    main_image = req['main_image'] if 'main_image' in req else ''
+    summary = req['summary'] if 'summary' in req else ''
+    stock = req['stock'] if 'stock' in req else ''
+    tags = req['tags'] if 'tags' in req else ''
+
+    price = Decimal(price).quantize(Decimal('0.00'))    # 转换价格格式
+
+    if len(cat_id) < 1:
+        resp['code'] = -1
+        resp['msg'] = "请选择分类"
+        return jsonify(resp)
+    if name is None or len(name) < 1:
+        resp['code'] = -1
+        resp['msg'] = "请输入符合规范的名称"
+        return jsonify(resp)
+    if price <= 0:
+        resp['code'] = -1
+        resp['msg'] = "请输入符合规范的价格"
+        return jsonify(resp)
+    if summary is None or len(summary) < 3:
+        resp['code'] = -1
+        resp['msg'] = "请输入符合规范的描述"
+        return jsonify(resp)
+    if main_image is None or len(main_image) < 3:
+        resp['code'] = -1
+        resp['msg'] = "请上传封面"
+        return jsonify(resp)
+    if len(stock) < 0:
+        resp['code'] = -1
+        resp['msg'] = "请输入符合规范的库存量"
+        return jsonify(resp)
+    if tags is None or len(tags) < 1:
+        resp['code'] = -1
+        resp['msg'] = "请输入标签"
+        return jsonify(resp)
+
+    food_info = Food.query.filter_by(id=id).first()
+    before_stock = 0
+    if food_info:
+        model_food = food_info
+        before_stock = model_food.stock
+    else:
+        model_food = Food()
+        model_food.status = 1
+        model_food.created_time = getCurrentDate()
+
+    model_food.cat_id = cat_id
+    model_food.name = name
+    model_food.price = price
+    model_food.main_image = main_image
+    model_food.summary = summary
+    model_food.stock = stock
+    model_food.tags = tags
+    model_food.updated_time = getCurrentDate()
+
+    db.session.add(model_food)
+    ret = db.session.commit()
+
+    model_stock_change = FoodStockChangeLog()
+    model_stock_change.food_id = model_food.id
+    model_stock_change.unit = int(stock)-int(before_stock)
+    model_stock_change.total_stock = stock
+    model_stock_change.note = ''
+    model_stock_change.created_time = getCurrentDate()
+    db.session.add(model_stock_change)
+    db.session.commit()
+    return jsonify(resp)
+
 
 
 # 分类列表    不用分页
