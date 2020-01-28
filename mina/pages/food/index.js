@@ -77,6 +77,8 @@ Page({
 			 ],
             loadingMoreHidden: false
         });
+
+        this.getBannerAndCat();
     },
     scroll: function (e) {
         var that = this, scrollTop = that.data.scrollTop;
@@ -114,5 +116,60 @@ Page({
         wx.navigateTo({
             url: "/pages/food/info?id=" + e.currentTarget.dataset.id
         });
+    },
+    //获取banner图和菜品分类
+    getBannerAndCat:function () {
+        var that = this;
+        wx.request({
+            url:app.buildUrl("/food/index"),
+            header:app.getRequestHeader(),
+            success:function ( res ) {
+                var resp = res.data;
+                if(resp.code != 200){
+                  app.alert({"content":resp.msg});
+                  return;
+                }
+                that.setData({
+                  banners:resp.data.banner_list,
+                  categories:resp.data.cat_list
+                });
+                that.getFoodList();
+
+            }
+        });
+
+    },
+     //分类标签被点击后处理方法
+    catClick:function(){
+      this.setData({
+        activeCategoryId:e.currentTarget.id
+      });
+      this.getFoodList();
+    },
+    //获取菜品列表
+    getFoodList:function(){
+      var that = this;
+      wx.request({
+        url: app.buildUrl("/food/search"),
+        header: app.getRequestHeader(),
+        data:{
+          cat_id: that.data.activeCategoryId,
+          mix_kw:that.data.searchInput
+
+        },
+        success: function (res) {
+          var resp = res.data;
+          if (resp.code != 200) {
+            app.alert({ "content": resp.msg });
+            return;
+          }
+          var goods = resp.data.list;          
+          that.setData({
+            goods:goods
+            
+          });
+
+        }
+      });
     }
 });
