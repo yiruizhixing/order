@@ -9,3 +9,7 @@ flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables food_sale_cha
 flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables food_stock_change_log --outfile "common/models/food/foodStockChangeLog.py"  --flask
 
 flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables images --outfile "common/models/Images.py"  --flask
+
+
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables xunkao_cat --outfile "common/models/Xunkao_cat.py"  --flask
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables people --outfile "common/models/people/People.py"  --flask
