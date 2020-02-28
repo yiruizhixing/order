@@ -14,8 +14,6 @@ CREATE TABLE `xunkao_cat` (
   UNIQUE KEY `idx_name` (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='巡考分类';
 
-
-
 3、巡考人员库people
 
 DROP TABLE IF EXISTS `people`;
@@ -42,3 +40,88 @@ CREATE TABLE `people` (
   `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='巡考人员表'
+
+1、数据字典表
+
+DROP TABLE IF EXISTS `dic_desc`;
+
+CREATE TABLE `dic_desc` (
+  `dic_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `dic_name` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '字典名称',
+  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`dic_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='数据字典表';
+
+
+2、数据字典状态表dic_status
+
+CREATE TABLE `dic_status` (
+  `status_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `dic_id` int(11) unsigned NOT NULL,
+  `status_name` varchar(200) NOT NULL,
+  `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`status_id`),
+  KEY `dic_id` (`dic_id`),
+  CONSTRAINT `dic_id` FOREIGN KEY (`dic_id`) REFERENCES `dic_desc` (`dic_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='数据字典状态表';
+
+4、考试列表exam
+
+DROP TABLE IF EXISTS `exam`;
+
+CREATE TABLE `exam` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `exam_name` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '考试名称',
+  `exam_code` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '考试代码',
+  `abbreviation` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '考试简称',
+  `exam_date` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '考试年月',
+  `summary` VARCHAR(300) NOT NULL DEFAULT '' COMMENT '描述',
+  `exam_status` INT(11) UNSIGNED NOT NULL  COMMENT '状态 归档  启用  关闭',
+  `exam_cat` INT(11) UNSIGNED NOT NULL COMMENT '考试类别 1：专业技术 2：执业资格 3：公务员事业单位 4：社会化 5：其他 ',
+  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `exam_status` FOREIGN KEY (`exam_status`) REFERENCES `dic_status` (`status_id`) ON UPDATE CASCADE,
+  CONSTRAINT `exam_cat` FOREIGN KEY (`exam_cat`) REFERENCES `dic_status` (`status_id`) ON UPDATE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='考试列表';
+
+
+5、考试科目表exam_kemu
+
+DROP TABLE IF EXISTS `exam_kemu`;
+
+CREATE TABLE `exam_info` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `exam_id` INT(11) NOT NULL DEFAULT '0' COMMENT '考试id',
+  `changci` varchar(200) NOT NULL DEFAULT '' COMMENT '场次名称',
+  `kemu` varchar(200) NOT NULL DEFAULT '' COMMENT '科目名称',
+  `time_start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
+  `time_end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '结束时间',
+  `kaochang` int(11) NOT NULL DEFAULT '0' COMMENT '考场数量',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1：有效 0：无效',
+  `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='考试科目表';
+
+
+6、考点库kaodian
+
+DROP TABLE IF EXISTS `kaodian`;
+
+CREATE TABLE `kaodian` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL DEFAULT '' COMMENT '考点名称',
+  `address` varchar(200) NOT NULL DEFAULT '' COMMENT '考点地址',
+  `kaochang` int(11) NOT NULL DEFAULT '0' COMMENT '考场数量',
+  `linkman` varchar(50) NOT NULL DEFAULT '' COMMENT '联系人',
+  `tel` varchar(50) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1：有效 0：无效',
+  `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='考点库表';
+
+

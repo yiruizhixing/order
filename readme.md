@@ -13,3 +13,7 @@ flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables images --outf
 
 flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables xunkao_cat --outfile "common/models/Xunkao_cat.py"  --flask
 flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables people --outfile "common/models/people/People.py"  --flask
+
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables kaodian --outfile "common/models/exam/Kaodian.py"  --flask
+
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables exam --outfile "common/models/exam/Exam.py"  --flask

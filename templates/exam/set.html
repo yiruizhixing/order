@@ -1,0 +1,68 @@
+{% extends "common/layout_main.html" %}
+{% block content %}
+<div class="row  border-bottom">
+    <div class="col-lg-12">
+        <div class="tab_title">
+            <ul class="nav nav-pills">
+                <li class="current">
+                    <a href="{{ buildUrl('/exam/index') }}">考试管理</a>
+                </li>
+                <li>
+                    <a href="{{ buildUrl('/exam/kaodian') }}">考点管理</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row m-t  wrap_account_set">
+	<div class="col-lg-12">
+		<h2 class="text-center">考试设置</h2>
+		<div class="form-horizontal m-t m-b">
+			<div class="form-group">
+				<label class="col-lg-2 control-label">考试名称:</label>
+				<div class="col-lg-10">
+					<input type="text" name="exam_name" class="form-control" placeholder="请输入考试名称~~" value="{{ info.exam_name }}">
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">考试年月:</label>
+				<div class="col-lg-10">
+					<input type="text" name="exam_date" class="form-control" placeholder="请输入考试年月~~" value="{{ info.exam_date }}">
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+                <label class="col-lg-2 control-label">考试类别:</label>
+                <div class="col-lg-10">
+                    <select name="exam_cat" class="form-control select2-hidden-accessible" tabindex="-1"
+                            aria-hidden="true">
+                        <option value="2">执业资格</option>
+                        {% for item in exam_cat_list %}
+                        <option value="{{ item.status_id }}"{% if item.status_id == info.exam_cat %} selected {% endif %}>{{item.status_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">考试描述:</label>
+				<div class="col-lg-10">
+					<input type="text" name="summary" class="form-control" placeholder="请输入考试描述~~" value="{{ info.summary }}">
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<div class="col-lg-4 col-lg-offset-2">
+                    <input type="hidden" name="id" value="{{ info.id }}">
+					<button class="btn btn-w-m btn-outline btn-primary save">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{{ buildStaticUrl('/js/exam/set.js') }}"></script>
+{% endblock %}
+
