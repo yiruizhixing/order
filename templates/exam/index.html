@@ -17,29 +17,8 @@
 <div class="row">
     <div class="col-lg-12">
         <form class="form-inline wrap_search">
-            <div class="row m-t p-w-m">
-                <div class="form-group">
-                    <select name="status" class="form-control inline">
-                        <option value="-1">请选择状态</option>
-                        {% for tem_key in status_mapping  %}
-                            <option value="{{tem_key}}" {% if tem_key == search_con['status'] %} selected {% endif %}>{{status_mapping[tem_key]}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+            <hr/>
 
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" name="mix_kw" placeholder="请输入姓名或者手机号码" class="form-control" value="{{search_con['mix_kw']}}">
-                        <input type="hidden" name="p" value="{{search_con['p']}}">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary search">
-                                <i class="fa fa-search"></i>搜索
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <hr>
             <div class="row">
                 <div class="col-lg-12">
                     <a class="btn btn-w-m btn-outline btn-primary pull-right"
@@ -48,6 +27,7 @@
                     </a>
                 </div>
             </div>
+
         </form>
         <table class="table table-bordered m-t">
             <thead>
@@ -72,24 +52,26 @@
                 <td>{{ item.exam_date }}</td>
                 <td>{{ item.dic_statu1.status_name}}</td>
                 <td>
-                    <a href="{{ buildUrl('/exam/info') }}?id={{ item.id }}">
-                        <i class="fa fa-eye fa-lg"></i>
-                    </a>
-
                     {% if item.exam_status == 7 %}
+                    <!--关闭暂停操作显示-->
+                    <a class="m-l pause" href="javascript:void(0);" data="{{ item.id}}">
+                        <i class="fa fa-stop fa-lg"></i>
+                    </a>
+                    <!--编辑操作显示-->
                     <a class="m-l" href="{{ buildUrl('/exam/set') }}?id={{ item.id }}">
                         <i class="fa fa-edit fa-lg"></i>
                     </a>
-                    <!--删除操作显示-->
-                    <a class="m-l remove" href="javascript:void(0);" data="{{ item.id}}">
-                        <i class="fa fa-trash fa-lg"></i>
-                    </a>
+
                     {% else %}
-                        <!--恢复操作显示-->
-                        <a class="m-l recover" href="javascript:void(0);" data="{{ item.uid}}">
-                            <i class="fa fa-rotate-left fa-lg"></i>
+                        <!--恢复启用操作显示-->
+                        <a class="m-l recover" href="javascript:void(0);" data="{{ item.id}}">
+                            <i class="fa fa-play fa-lg"></i>
                     </a>
                     {% endif %}
+                    <!--查看操作显示-->
+                    <a class="m-l" href="{{ buildUrl('/exam/info') }}?id={{ item.id }}">
+                        <i class="fa fa-eye fa-lg"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>

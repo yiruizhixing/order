@@ -1,0 +1,272 @@
+<!--//参考 people/info.html-->
+{% extends "common/layout_main.html" %}
+{% block content %}
+{% include "common/tab_people.html" %}
+<style type="text/css">
+    .wrap_info img {
+        width: 70%;
+    }
+
+    .btnAdd {
+            width: 110px;
+            height: 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .form-item {
+            height: 100%;
+            position: relative;
+            padding-left: 100px;
+            padding-right: 20px;
+            margin-bottom: 34px;
+            line-height: 36px;
+        }
+
+        .form-item > .lb {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            width: 100px;
+            text-align: right;
+        }
+
+        .form-item > .txt {
+            width: 300px;
+            height: 32px;
+        }
+
+        .mask {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            opacity: 0.6;
+            display: none;
+        }
+
+        #j_hideFormAdd {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 22px;
+            font-size: 18px;
+        }
+        #j_hideFormAdd:hover {
+            background-color: skyblue;
+        }
+        .form-add {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            margin-left: -197px;
+            padding-bottom: 20px;
+            background: #fff;
+            display: none;
+        }
+
+        .form-add-title {
+            background-color: #f7f7f7;
+            border-width: 1px 1px 0 1px;
+            border-bottom: 15px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .form-add-title span {
+            width: auto;
+            height: 30px;
+            font-size: 16px;
+            font-family: 宋体;
+            font-weight: bold;
+            color: rgb(102, 102, 102);
+            text-indent: 12px;
+            padding: 8px 0px 10px;
+            margin-right: 10px;
+            display: block;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .form-add-title div {
+            width: 16px;
+            height: 20px;
+            position: absolute;
+            right: 10px;
+            top: 6px;
+            font-size: 30px;
+            line-height: 16px;
+            cursor: pointer;
+        }
+
+        .form-submit {
+            text-align: center;
+        }
+
+        .form-submit input {
+            width: 170px;
+            height: 32px;
+        }
+
+</style>
+<div class="row m-t wrap_info">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="m-b-m-b-mdmd">
+                    <input class="btn btn-outline btn-primary pull-right" type="button" value="+新增" id="kaoqu_btnAdd">
+                    <h3>考区人员：</h3>
+                </div>
+            </div>
+        </div>
+          <table class="table table-bordered m-t">
+            <thead>
+            <tr>
+                <th>岗位</th>
+                <th>姓名</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="j_tb">
+             {% if list %}
+                {% for item in list %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ cat_mapping[ item.cat_id].name  }}</td>
+                <td>{{ item.xunkao_id }}</td>
+                <td>
+                    <a href="{{ buildUrl('/people/info') }}?id={{ item.id  }}">
+                        <i class="fa fa-eye fa-lg"></i>
+                    </a>
+                     {%  if item.status == 1 %}
+                    <a class="m-l" href="{{ buildUrl('/people/set') }}?id={{ item.id  }}">
+                        <i class="fa fa-edit fa-lg"></i>
+                    </a>
+
+                    <a class="m-l remove" href="javascript:void(0);" data="{{ item.id  }}">
+                        <i class="fa fa-trash fa-lg"></i>
+                    </a>
+                    {% else %}
+                       <a class="m-l recover" href="javascript:void(0);" data="{{ item.id  }}">
+                        <i class="fa fa-rotate-left fa-lg"></i>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+             {% endfor %}
+            {% else %}
+                <tr><td colspan="6">暂无数据~~</td></tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <!--<div class="row">-->
+            <!--<div class="col-lg-12">-->
+
+                <!--<p></p>-->
+            <!--</div>-->
+        </div>
+        <div class="row m-t">
+            <div class="col-lg-12">
+                <div class="panel blank-panel">
+                    <div class="panel-heading">
+                        <div class="panel-options">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab-1" data-toggle="tab" aria-expanded="false">参加考试历史</a>
+                                </li>
+                                <li>
+                                    <a href="#tab-2" data-toggle="tab" aria-expanded="true">库存变更</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-1">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>会员名称</th>
+                                        <th>购买数量</th>
+                                        <th>购买价格</th>
+                                        <th>订单状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="4">暂无销售记录</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-2">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>变更</th>
+                                        <th>备注</th>
+                                        <th>时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if stock_change_list %}
+                                        {% for item in stock_change_list %}
+                                    <tr>
+                                        <td>{{item.unit}}</td>
+                                        <td>{{item.note}}</td>
+                                        <td>{{item.created_time}}</td>
+                                    </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                    <tr><td colspan="3">暂无数据</td> </tr>
+                                    {% endif %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!--遮罩层-->
+    <div id="j_mask" class="mask"></div>
+    <!--添加考区数据的表单-->
+    <div id="j_formAdd" class="form-add">
+        <div class="form-add-title">
+            <span>添加考区人员</span>
+
+            <div id="j_hideFormAdd">×</div>
+        </div>
+        <div class="form-item">
+            <label class="lb" for="j_txtCatname">岗位</label>
+            <input class="txt" type="text" id="j_txtCatname" placeholder="请选择岗位">
+        </div>
+        <div class="form-item">
+            <label class="lb" for="j_txtName">姓名</label>
+            <input class="txt" type="text" id="j_txtName" value="">
+        </div>
+        <div class="form-item">
+            <label class="lb" for="j_txtMark">备注</label>
+            <input class="txt" type="text" id="j_txtMark" value="">
+        </div>
+        <div class="form-submit">
+            <input type="button" value="添加" id="j_btnAdd">
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+<script src="{{ buildStaticUrl('/js/kaowu/arrange.js') }}"></script>
+{% endblock %}

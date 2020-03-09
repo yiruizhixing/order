@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <select name="cat_id" class="form-control inline">
-                        <option value="0">请选择岗位</option>
+                        <option value="0">请选择角色</option>
                         {% for tmp_key in cat_mapping %}
                             <option value="{{ tmp_key }}" {% if tmp_key|string == search_con['cat_id']  %} selected {% endif %} >{{ cat_mapping[ tmp_key].name  }}</option>
                         {% endfor %}
@@ -60,7 +60,7 @@
             <thead>
             <tr>
                 <th>姓名</th>
-                <th>岗位</th>
+                <th>默认角色</th>
                 <th>编号</th>
                 <th>车牌</th>
                 <th>权重</th>

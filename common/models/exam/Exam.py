@@ -21,6 +21,7 @@ class DicStatu(db.Model):
     dic_id = db.Column(db.ForeignKey('dic_desc.dic_id', onupdate='CASCADE'), nullable=False, index=True)
     status_name = db.Column(db.String(200), nullable=False)
     dic_name = db.Column(db.String(200))
+    beizhu = db.Column(db.String(200))
     updated_time = db.Column(db.DateTime, nullable=False, server_default=db.FetchedValue())
     created_time = db.Column(db.DateTime, nullable=False, server_default=db.FetchedValue())
 

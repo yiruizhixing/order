@@ -10,6 +10,7 @@ from web.controllers.stat.Stat import route_stat
 from web.controllers.api import route_api
 from web.controllers.upload.upload import route_upload
 from web.controllers.exam.Exam import route_exam
+from web.controllers.kaowu.Kaowu import route_kaowu
 
 '''
 统一拦截器and 统一错误处理
@@ -31,3 +32,4 @@ app.register_blueprint(route_stat, url_prefix="/stat")
 app.register_blueprint(route_api, url_prefix="/api")
 app.register_blueprint(route_upload, url_prefix="/upload")
 app.register_blueprint(route_exam, url_prefix="/exam")
+app.register_blueprint(route_kaowu, url_prefix="/kaowu")

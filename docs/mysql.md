@@ -28,7 +28,7 @@ CREATE TABLE `people` (
   `weight` CHAR(4) NOT NULL DEFAULT 'C' COMMENT '权重 A：优 B：良 C：合格 D：警告 E：黑名单',
   `status` TINYINT(1) NOT NULL DEFAULT '1' COMMENT '状态 1：有效 0：无效',
   `danwei` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '单位',
-  `bumen` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '部门',
+  `bumen` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '部 门',
   `chepai` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '车牌号',
   `mobile` VARCHAR(11) NOT NULL DEFAULT '' COMMENT '手机号码',
   `avatar` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '会员头像',

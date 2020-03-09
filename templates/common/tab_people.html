@@ -1,0 +1,18 @@
+<div class="row  border-bottom">
+    <div class="col-lg-12">
+        <div class="tab_title">
+            <ul class="nav nav-pills">
+                <li {% if current =="index"%} class="current" {% endif %}>
+                    <a href="{{ buildUrl('/kaowu/index') }}">巡考报名</a>
+                </li>
+                <li {% if current =="arrange"%} class="current" {% endif %}>
+                    <a href="{{ buildUrl('/kaowu/arrange') }}">人员安排</a>
+                </li>
+                <li {% if current =="stat"%} class="current" {% endif %}>
+                    <a href="{{ buildUrl('/kaowu/stat') }}">统计出表</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>

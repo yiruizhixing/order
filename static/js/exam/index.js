@@ -5,17 +5,14 @@ var exam_index_ops = {
     },
     eventBind:function () {
         var that = this;
-        /** 搜索 **/
-        $(".wrap_search .search").click(function () {
-            $(".wrap_search").submit();
-        });
-        /** 删除 **/
-        $(".remove").click( function () {
-            that.ops( "remove",$(this).attr("data") )
-        } );
+
         /** 恢复 **/
         $(".recover").click( function () {
             that.ops( "recover",$(this).attr("data") )
+        } );
+        /** 暂停**/
+        $(".pause").click( function () {
+            that.ops( "pause",$(this).attr("data") )
         } );
     },
     ops:function ( act,id ) {
@@ -43,7 +40,7 @@ var exam_index_ops = {
             },
             'cancel':null
         };
-        common_ops.confirm( (act == "remove" ? "确定删除吗？":"确定恢复吗？"),callback )
+        common_ops.confirm( (act == "pause" ? "确定关闭吗？关闭后不可编辑":"确定启用吗？"),callback )
 
     }
 };

@@ -3,7 +3,7 @@ from flask import Blueprint, request, redirect, jsonify
 from common.libs.Helper import ops_render, getCurrentDate, iPagination, getDictField
 from application import app, db
 from common.models.exam.Kaodian import Kaodian
-from common.models.people.People_cat import PeopleCat
+# from common.models.people.People_cat import PeopleCat
 from common.models.people.People import People
 from common.models.exam.Exam import Exam
 from common.models.exam.Exam import DicStatu
@@ -44,32 +44,32 @@ def index():
     offset = (page - 1) * app.config['PAGE_SIZE']  # 偏移量，第二页从50开始，第三页从101开始
     list = query.order_by(Exam.id.desc()).offset(offset).limit(app.config['PAGE_SIZE']).all()  # 使用id字段倒序排  # .all()  为取出所有的数据 然后存到列表list
 
-    cat_mapping = getDictField(PeopleCat,"id","id",[])
+    # cat_mapping = getDictField(PeopleCat,"id","id",[])
     resp_data['list'] = list
     resp_data['pages'] = pages
     resp_data['search_con'] = req  # 搜索框内容
-    resp_data['status_mapping'] = app.config['STATUS_MAPPING']
-    resp_data['cat_mapping'] = cat_mapping
+    # resp_data['status_mapping'] = app.config['STATUS_MAPPING']
+    # resp_data['cat_mapping'] = cat_mapping
     resp_data['current'] = 'index'
     return ops_render( "exam/index.html", resp_data)
 
-# 人员详情展示页面
+# 考试详情展示页面
 @route_exam.route( "/info" )
 def info():
     resp_data = {}
     req = request.args  # 参数多时用values ,参数少时用args
     id = int(req.get("id",0))
-    reback_url = UrlManager.buildUrl("/people/index")
+    reback_url = UrlManager.buildUrl("/exam/index")
     if id < 1:
         return redirect(reback_url)
-    info = People.query.filter_by(id=id).first()
+    info = Exam.query.filter_by(id=id).first()
     if not info:
         return redirect(reback_url)
 
 
     resp_data['info'] = info
     resp_data['current'] = 'index'
-    return ops_render( "people/info.html", resp_data )
+    return ops_render( "exam/info.html", resp_data )
 
 
 # 新增、编辑考试
@@ -245,26 +245,26 @@ def ops():
     act = req['act'] if 'act' in req else ''
     if not id:
         resp['code'] = -1
-        resp['msg'] = "请选择要操作的菜品"
+        resp['msg'] = "请选择要操作的考试"
         return jsonify(resp)
-    if act not in ['remove', 'recover']:
+    if act not in [ 'recover', 'pause']:
         resp['code'] = -1
         resp['msg'] = "操作有误，请重试"
         return jsonify(resp)
 
-    people_info = People.query.filter_by(id=id).first()
-    if not people_info:
+    exam_info = Exam.query.filter_by(id=id).first()
+    if not exam_info:
         resp['code'] = -1
-        resp['msg'] = "指定人员不存在，请重试"
+        resp['msg'] = "指定考试不存在，请重试"
         return jsonify(resp)
-    if act == "remove":
-        people_info.status = 0
+    if act == "pause":
+        exam_info.exam_status = 6
     elif act == "recover":
-        people_info.status = 1
+        exam_info.exam_status = 7
 
     # 提交信息
-    people_info.update_time = getCurrentDate()
-    db.session.add(people_info)
+    exam_info.update_time = getCurrentDate()
+    db.session.add(exam_info)
     db.session.commit()
     return jsonify(resp)
 
