@@ -2,7 +2,7 @@
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.schema import FetchedValue
 from sqlalchemy.orm import relationship
-from application import db, app
+from application import db
 
 
 class DicDesc(db.Model):
@@ -32,7 +32,7 @@ class DicStatu(db.Model):
 
 
 class Exam(db.Model):
-    __tablename__ = 'exam'
+    __tablename__ = 'exam_list'
 
     id = db.Column(db.Integer, primary_key=True)
     exam_name = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue())

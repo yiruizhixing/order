@@ -2,13 +2,9 @@
 from flask import Blueprint, request, redirect, jsonify
 from common.libs.Helper import ops_render, getCurrentDate, iPagination, getDictField
 from application import app, db
-from common.models.food.FoodCat import FoodCat
 from common.models.people.People_cat import PeopleCat
-from common.models.food.Food import Food
 from common.models.people.People import People
-from common.models.food.foodStockChangeLog import FoodStockChangeLog
 from common.libs.UrlManager import UrlManager
-from decimal import Decimal
 from sqlalchemy import or_
 route_people = Blueprint( 'people_page',__name__ )
 

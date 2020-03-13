@@ -1,7 +1,7 @@
 <!--//参考 people/info.html-->
 {% extends "common/layout_main.html" %}
 {% block content %}
-{% include "common/tab_people.html" %}
+{% include "common/tab_kaowu.html" %}
 <style type="text/css">
     .wrap_info img {
         width: 70%;
@@ -119,13 +119,13 @@
             <div class="col-lg-12">
                 <div class="m-b-m-b-mdmd">
                     <input class="btn btn-outline btn-primary pull-right" type="button" value="+新增" id="kaoqu_btnAdd">
-                    <h3>考区人员：</h3>
                 </div>
             </div>
         </div>
           <table class="table table-bordered m-t">
             <thead>
             <tr>
+                <th>序号</th>
                 <th>岗位</th>
                 <th>姓名</th>
                 <th>备注</th>
@@ -133,29 +133,23 @@
             </tr>
             </thead>
             <tbody id="j_tb">
-             {% if list %}
-                {% for item in list %}
+             {% if kaoqu_people_list %}
+                {% for item in kaoqu_people_list %}
             <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ cat_mapping[ item.cat_id].name  }}</td>
-                <td>{{ item.xunkao_id }}</td>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.job }}</td>
+                <td>{{ item.name.name  }}</td>
+                <td>{{ item.beizhu1 }}</td>
                 <td>
-                    <a href="{{ buildUrl('/people/info') }}?id={{ item.id  }}">
+                    <a href="{{ buildUrl('/people/info') }}?id={{ item.name_id  }}">
                         <i class="fa fa-eye fa-lg"></i>
-                    </a>
-                     {%  if item.status == 1 %}
-                    <a class="m-l" href="{{ buildUrl('/people/set') }}?id={{ item.id  }}">
-                        <i class="fa fa-edit fa-lg"></i>
                     </a>
 
                     <a class="m-l remove" href="javascript:void(0);" data="{{ item.id  }}">
                         <i class="fa fa-trash fa-lg"></i>
                     </a>
-                    {% else %}
-                       <a class="m-l recover" href="javascript:void(0);" data="{{ item.id  }}">
-                        <i class="fa fa-rotate-left fa-lg"></i>
-                    </a>
-                    {% endif %}
+                    <span style="display: none">{{ item.id }}</span>
+
                 </td>
             </tr>
              {% endfor %}
@@ -171,72 +165,7 @@
                 <!--<p></p>-->
             <!--</div>-->
         </div>
-        <div class="row m-t">
-            <div class="col-lg-12">
-                <div class="panel blank-panel">
-                    <div class="panel-heading">
-                        <div class="panel-options">
-                            <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#tab-1" data-toggle="tab" aria-expanded="false">参加考试历史</a>
-                                </li>
-                                <li>
-                                    <a href="#tab-2" data-toggle="tab" aria-expanded="true">库存变更</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
 
-                    <div class="panel-body">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab-1">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>会员名称</th>
-                                        <th>购买数量</th>
-                                        <th>购买价格</th>
-                                        <th>订单状态</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td colspan="4">暂无销售记录</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-pane" id="tab-2">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>变更</th>
-                                        <th>备注</th>
-                                        <th>时间</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% if stock_change_list %}
-                                        {% for item in stock_change_list %}
-                                    <tr>
-                                        <td>{{item.unit}}</td>
-                                        <td>{{item.note}}</td>
-                                        <td>{{item.created_time}}</td>
-                                    </tr>
-                                        {% endfor %}
-                                    {% else %}
-                                    <tr><td colspan="3">暂无数据</td> </tr>
-                                    {% endif %}
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -250,15 +179,22 @@
             <div id="j_hideFormAdd">×</div>
         </div>
         <div class="form-item">
-            <label class="lb" for="j_txtCatname">岗位</label>
-            <input class="txt" type="text" id="j_txtCatname" placeholder="请选择岗位">
+            <label class="lb" for="j_txtCatname">岗位:</label>
+            <!--<input class="txt" type="text" id="j_txtCatname" placeholder="请选择岗位">-->
+             <select name="j_txtCatname" class="form-control " tabindex="-1"
+                            aria-hidden="true">
+                        <option value="巡视">巡视</option>
+                        {% for item in cat_list %}
+                        <option value="{{ item.name }}">{{item.name}}</option>
+                        {% endfor %}
+             </select>
         </div>
         <div class="form-item">
-            <label class="lb" for="j_txtName">姓名</label>
-            <input class="txt" type="text" id="j_txtName" value="">
+            <label class="lb" for="id_select2_j_txtName">姓名:</label>
+            <select class="txt" id="id_select2_j_txtName"></select>
         </div>
         <div class="form-item">
-            <label class="lb" for="j_txtMark">备注</label>
+            <label class="lb" for="j_txtMark">备注:</label>
             <input class="txt" type="text" id="j_txtMark" value="">
         </div>
         <div class="form-submit">
@@ -267,6 +203,12 @@
     </div>
 
 {% endblock %}
+
+{% block css %}
+<link href="{{ buildStaticUrl('/plugins/select2/select2.min.css') }}" rel="stylesheet">
+{% endblock %}
 {% block js %}
-<script src="{{ buildStaticUrl('/js/kaowu/arrange.js') }}"></script>
+<script src="{{ buildStaticUrl('/plugins/select2/select2.pinyin.js') }}"></script>
+<script src="{{ buildStaticUrl('/plugins/select2/zh-CN.js') }}"></script>
+<script src="{{ buildStaticUrl('/js/kaowu/kqarrange.js') }}"></script>
 {% endblock %}

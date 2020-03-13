@@ -5,8 +5,10 @@
                 <li {% if current =="index"%} class="current" {% endif %}>
                     <a href="{{ buildUrl('/kaowu/index') }}">巡考报名</a>
                 </li>
-                <li {% if current =="arrange"%} class="current" {% endif %}>
-                    <a href="{{ buildUrl('/kaowu/arrange') }}">人员安排</a>
+                <li {% if current =="kqarrange"%} class="current" {% endif %}>
+                    <a href="{{ buildUrl('/kaowu/kqarrange') }}">考区人员安排</a>
+                    <li {% if current =="kdarrange"%} class="current" {% endif %}>
+                    <a href="{{ buildUrl('/kaowu/kdarrange') }}">考点人员安排</a>
                 </li>
                 <li {% if current =="stat"%} class="current" {% endif %}>
                     <a href="{{ buildUrl('/kaowu/stat') }}">统计出表</a>
