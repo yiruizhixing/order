@@ -14,7 +14,8 @@ var kaowu_arrange_ops ={
 
         /** 人员新增-人员输入*/
         $("#id_select2_j_txtName").select2({
-            placeholder: '-----单选-----',
+            //tags: true,   //是否支持自定义标签
+            //placeholder: '请选择',
                 ajax: {
                     url: "",
                     dataType: 'json',

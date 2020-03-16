@@ -7,12 +7,14 @@ from common.models.people.People_cat import PeopleCat
 from common.models.people.People import People
 from sqlalchemy import or_
 
-route_kaowu = Blueprint( 'kaowu_page',__name__ )
+route_kaowu = Blueprint( 'kaowu_page', __name__ )
 
 @route_kaowu.route( "/index" )
 def index():
     return ops_render( "kaowu/index.html" )
 
+
+# 考区人员安排
 @route_kaowu.route( "/kqarrange", methods=["GET", "POST"] )
 def kqarrange():
     if request.method == "GET":
@@ -63,7 +65,7 @@ def kqarrange():
     model_kaowu.workdays = 1        # 工作天数
     model_kaowu.canbu = 1           # 餐补天数
     model_kaowu.workplace = "考区"
-    name_id=int(name_id)
+    name_id = int(name_id)
     model_kaowu.name_id = name_id        # 人员id
     model_kaowu.created_time = getCurrentDate()
     model_kaowu.updated_time = getCurrentDate()
@@ -72,6 +74,16 @@ def kqarrange():
     db.session.add(model_kaowu)
     db.session.commit()
     return jsonify(resp)
+
+
+# 考点人员安排
+@route_kaowu.route( "/kdarrange", methods=["GET", "POST"] )
+def kdarrange():
+
+
+    return ops_render("kaowu/kdarrange.html")
+
+
 
 
 @route_kaowu.route( "/member" )
