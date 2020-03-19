@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, redirect, jsonify
+from flask import Blueprint, request, redirect, jsonify, g, session
 from common.libs.Helper import ops_render, getCurrentDate, iPagination, getDictField
 from application import app, db
 from common.models.exam.Kaodian import Kaodian
@@ -9,7 +9,11 @@ from common.models.exam.Exam import Exam
 from common.models.exam.Exam import DicStatu
 from common.libs.UrlManager import UrlManager
 from sqlalchemy import or_
-route_exam = Blueprint( 'exam_page',__name__ )
+import json
+from common.libs.user.UserService import UserService
+
+
+route_exam = Blueprint( 'exam_page', __name__ )
 
 
 @route_exam.route( "/index" )
@@ -266,5 +270,49 @@ def ops():
     exam_info.update_time = getCurrentDate()
     db.session.add(exam_info)
     db.session.commit()
+    return jsonify(resp)
+
+
+# 当前考试选择操作
+@route_exam.route( "/choose", methods=["GET", "POST"])
+def choose():
+    query = Exam.query
+    if request.method == "GET":
+        resp_data = {}
+        req = request.values
+
+        query = query.filter(or_(Exam.exam_status == 7, Exam.exam_status == 8))   # 筛选出考试状态为开启和已归档的考试
+
+        list = query.order_by(Exam.id.desc()).all()  # 使用id字段倒序排  # .all()  为取出所有的数据 然后存到列表list
+        resp_data['list'] = list
+        resp_data['current'] = 'choose'
+        return ops_render("exam/choose.html", resp_data)
+
+    # POST
+    resp = {'code': 200, 'msg': '操作成功', 'data': ''}
+    req = request.values
+    id = req['id'] if 'id' in req else 0         # 选择的考试id
+    act = req['act'] if 'act' in req else ''
+    if not id:
+        resp['code'] = -1
+        resp['msg'] = "请首先进行选择"
+        return jsonify(resp)
+    if act not in ['choose']:
+        resp['code'] = -1
+        resp['msg'] = "操作有误，请重试"
+        return jsonify(resp)
+
+    query = query.filter_by(id=id).first()
+    if query.exam_status == 6:
+        resp['code'] = -1
+        resp['msg'] = "考试已关闭，不可选择"
+        return jsonify(resp)
+    resp['msg'] = "选择成功！"
+    '''
+       更新session
+    '''
+    session["examid"] = id
+    session["exam_name"] = query.exam_name
+    session["exam_status"] = query.dic_statu1.status_name
     return jsonify(resp)
 

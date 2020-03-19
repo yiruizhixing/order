@@ -1,13 +1,12 @@
 # 拦截器，判断登录状态用
 
 from application import app
-from flask import request, redirect, g
+from flask import request, redirect, g, session
 from common.models.User import User
 from common.libs.user.UserService import UserService
 from common.libs.UrlManager import UrlManager
-from common.libs.LogService import LogService   #导入日志记录类
-import re    # 导入正则表达式模块
-
+from common.libs.LogService import LogService   # 导入日志记录类
+import re                                       # 导入正则表达式模块
 
 
 @app.before_request
@@ -23,9 +22,11 @@ def before_request():
 
     user_info = check_login()
     g.current_user = None
+
     if user_info:
         g.current_user = user_info
 
+    # app.logger.info(g.current_exam)
     # 加入访问记录日志
     LogService.addAccessLog()
 
@@ -33,8 +34,13 @@ def before_request():
     if pattern.match(path):
         return
 
-    if not user_info:
+    if not user_info:               # 如果没有登录，就去登
         return redirect( UrlManager.buildUrl( "/user/login" ))
+
+    if not session.get("examid"):   # 如果没有选择考试，就去选
+        return redirect(UrlManager.buildUrl("/exam/choose"))
+
+
 
 '''
 判断用户是否已经登录

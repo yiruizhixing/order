@@ -114,15 +114,35 @@
                     </li>
 
                 </ul>
+                <ul class="nav navbar-top-links navbar-left " style="margin-top: 27px ">
+                    <li>
+						<span class="m-r-sm text-muted welcome-message " style="color: #060303">
+                            当前考试：
+                        </span>
+                        <span class="m-r-sm text-muted welcome-message " style="color: #060303">
+                            {{session.examid}}-{{session.exam_name}}【{{session.exam_status}}】<a id="g_btn_examchoose" href="{{ buildUrl('/exam/choose') }}"> 选择考试 </a>
+                        </span>
+
+                    </li>
+
+                </ul>
 
             </nav>
         </div>
+
+
         {% block content %}{% endblock %}
     </div>
 </div>
+
+
+
+
 <div class="hidden hidden_layout_wrap">
     <input name="domain" value="{{config.APP.domain}}">
     <input name="prefix_url" value="{{config.UPLOAD.prefix_url}}">
+
+
 </div>
 <script src="{{ buildStaticUrl('/plugins/jquery-2.1.1.js') }}"></script>
 <script src="{{ buildStaticUrl('/bootstrap/bootstrap.min.js') }}"></script>

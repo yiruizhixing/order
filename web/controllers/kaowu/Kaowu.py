@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from application import app, db
-from flask import Blueprint, request, redirect, jsonify
+from flask import Blueprint, request, redirect, jsonify, g
 from common.libs.Helper import ops_render, getCurrentDate
 from common.models.exam.Exam_kaowu import ExamKaowu
 from common.models.people.People_cat import PeopleCat
@@ -80,6 +80,12 @@ def kqarrange():
 @route_kaowu.route( "/kdarrange", methods=["GET", "POST"] )
 def kdarrange():
 
+    resp = {'code': 200, 'msg': '操作成功', 'data': ''}
+    req = request.values  # 参数多时用values ,参数少时用args
+
+    resp['msg'] = g.current_exam
+
+    # return jsonify(resp)
 
     return ops_render("kaowu/kdarrange.html")
 

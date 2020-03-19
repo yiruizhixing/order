@@ -9,12 +9,13 @@ from common.libs.UrlManager import UrlManager
 
 route_user = Blueprint( 'user_page', __name__ )
 
+
 @route_user.route( "/login",methods = ["GET","POST"])
 def login():
-    if request.method=="GET":               # 登录页面展示
+    if request.method=="GET":                        # 登录页面展示
         return ops_render( "user/login.html" )
-    resp = {'code':200,'msg':'登录成功','data':''}   #定义全局变量，返回值字典，data为扩展字段
-    req = request.values                    # 获取前端文本框信息
+    resp = {'code':200,'msg':'登录成功','data':''}   # 定义全局变量，返回值字典，data为扩展字段
+    req = request.values                             # 获取前端文本框信息
     login_name = req['login_name'] if 'login_name' in req else ''
     login_pwd = req['login_pwd'] if 'login_pwd' in req else ''
 
@@ -22,7 +23,7 @@ def login():
         resp['code'] = -1
         resp['msg'] = "请输入正确的登录用户名~~"
         return jsonify(resp)
-    if login_pwd is None or len(login_pwd) < 1:         # 密码参数有效性判断
+    if login_pwd is None or len(login_pwd) < 1:           # 密码参数有效性判断
         resp['code'] = -1
         resp['msg'] = "请输入正确的登录密码~~"
         return jsonify(resp)
@@ -46,14 +47,15 @@ def login():
     response.set_cookie(app.config['AUTH_COOKIE_NAME'], "%s#%s"%( UserService.geneAuthCode( user_info ), user_info.uid ))
     return response
 
+
 # #信息修改
-@route_user.route( "/edit" ,methods = ["GET","POST"])
+@route_user.route( "/edit", methods = ["GET", "POST"])
 def edit():
     if request.method == "GET":
         return ops_render( "user/edit.html",{ 'current':'edit'} )
 
     resp = {'code': 200, 'msg': '操作成功', 'data': ''}
-    req = request.values    # 参数多时用values ,参数少时用args
+    req = request.values                                   # 参数多时用values ,参数少时用args
     nickname = req['nickname']if'nickname'in req else ''
     email = req['email']if 'email'in req else ''
 
@@ -76,11 +78,11 @@ def edit():
 
 
 # #密码修改
-@route_user.route( "/reset-pwd" ,methods = ["GET","POST"])
+@route_user.route( "/reset-pwd", methods = ["GET", "POST"])
 def resetPwd():
     if request.method == "GET":
-        return ops_render( "user/reset_pwd.html",{ 'current':'reset-pwd'} )
-    resp = {'code': 200, 'msg': '操作成功', 'data': ''}  # 定义全局变量，返回值字典，data为扩展字段
+        return ops_render( "user/reset_pwd.html", {'current': 'reset-pwd'} )
+    resp = {'code': 200, 'msg': '操作成功', 'data': ''}                       # 定义全局变量，返回值字典，data为扩展字段
     req = request.values  # 获取前端文本框信息
     old_password = req['old_password'] if 'old_password' in req else ''
     new_password = req['new_password'] if 'new_password' in req else ''
@@ -114,6 +116,7 @@ def resetPwd():
     response = make_response(json.dumps( resp ))
     response.set_cookie(app.config['AUTH_COOKIE_NAME'], "%s#%s"%( UserService.geneAuthCode( user_info ), user_info.uid ))
     return response
+
 
 # #登出操作
 @route_user.route("/logout")

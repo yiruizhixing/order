@@ -13,8 +13,9 @@ APP = {
 IGNORE_URLS = [
     "^/user/login",
     "^/api",
+    "^/exam/choose"
+]
 
-               ]
 IGNORE_CHECK_LOGIN_URLS = [
     "^/static",
     "^/favicon.ico"
@@ -32,9 +33,9 @@ STATUS_MAPPING = {
 
 
 # 小程序参数
-MINA_APP ={
-    'appid':'wx21ff50521f0e437a',
-    'appkey':'12cf2ebf0ae711a1c5ef06a7cda37300'
+MINA_APP = {
+    'appid': 'wx21ff50521f0e437a',
+    'appkey': '12cf2ebf0ae711a1c5ef06a7cda37300'
 }
 
 
@@ -43,3 +44,7 @@ UPLOAD = {
     'prefix_path':'/static/upload/',
     'prefix_url':'/static/upload/'
 }
+
+# 设置SECRET_KEY   session 加密用
+SECRET_KEY = "fhdk^fk#djefkj&*&*&"
+
