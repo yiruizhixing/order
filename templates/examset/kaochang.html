@@ -1,0 +1,255 @@
+{% extends "common/layout_main.html" %}
+{% block content %}
+<div class="row  border-bottom">
+    <div class="col-lg-12">
+        <div class="tab_title">
+            <ul class="nav nav-pills">
+                <li class="current">
+                    <a href="{{ buildUrl('/examset/index') }}">基本设置</a>
+                </li>
+                <li>
+                    <a href="{{ buildUrl('/examset/kaodian') }}">考点设置</a>
+                </li>
+                <li>
+                    <a href="{{ buildUrl('/examset/kaochang') }}">考场设置</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row m-t">
+    <div class="col-lg-12" id="container"  >
+        {# 显示消息闪现的内容开始 #}
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            {{message }}
+        </div>
+        {% endfor %}
+        {# 显示消息闪现的内容结束 #}
+        <h3>基本设置：</h3>
+        <div class="hr-line-dashed col-sm-12" style="margin-top: 0px"></div>
+        <form class="form-horizontal" >
+            <div class="form-group " >
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">考试名称：</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{session.exam_name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inlineRadio1" class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">考试科数：</label>
+                <div class="col-lg-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 4
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5"> 5
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option6"> 6
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio7" value="option7"> 7
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio8" value="option7"> 8
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">考试天数：</label>
+                <div class="col-lg-10">
+                  <select name="exam_cat" class="form-control " tabindex="-1"
+                            aria-hidden="true" >
+                      <option>0.5</option>
+                      <option>1</option>
+                      <option>1.5</option>
+                      <option>2</option>
+                      <option>2.5</option>
+                      <option>3</option>
+                      <option>3.5</option>
+                      <option>4</option>
+                      <option>4.5</option>
+                      <option>5</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">餐补次数：</label>
+                <div class="col-lg-10">
+                    <select name="exam_cat" class="form-control " tabindex="-1"
+                            aria-hidden="true">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <a class="btn btn-w-m btn-outline btn-primary save  ">编辑</a>
+                    <a class="btn btn-w-m btn-outline btn-primary save" style="margin-left: 10px">保存</a>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="hr-line-dashed"></div>
+        <h3>科目设置：</h3>
+        <div class="hr-line-dashed col-sm-12"></div>
+        <div class="col-lg-11 col-sm-offset-1" style="padding-left: 0px">
+            <table class="table table-bordered table-hover m-t" >
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>科目名称</th>
+                <th>考试时间</th>
+                <th>考试时长</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="j_tb">
+            {% if kaoqu_people_list %}
+            {% for item in kaoqu_people_list %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.job }}</td>
+                <td>{{ item.name.name }}</td>
+                <td>{{ item.beizhu1 }}</td>
+                <td>
+                    <a href="{{ buildUrl('/people/info') }}?id={{ item.name_id  }}">
+                        <i class="fa fa-eye fa-lg"></i>
+                    </a>
+
+                    <a class="m-l remove" href="javascript:void(0);" data="{{ item.id  }}">
+                        <i class="fa fa-trash fa-lg"></i>
+                    </a>
+                    <span style="display: none">{{ item.id }}</span>
+
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="6">暂无数据~~</td>
+            </tr>
+            {% endif %}
+            </tbody>
+            </table>
+            <div class="form-group">
+                    <a class="btn btn-w-m btn-outline btn-primary save">编辑</a>
+                    <a class="btn btn-w-m btn-outline btn-primary save">保存</a>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="hr-line-dashed col-sm-12"></div>
+        <h3>考点设置：</h3>
+        <div class="hr-line-dashed col-sm-12"></div>
+        <div class="col-sm-5 col-sm-offset-1">
+        <select multiple class="form-control"  name="groups" size="10">
+            <option value="1">GroupA</option>
+            <option selected value="2">GroupB</option>
+            <option value="3">GroupC</option>
+            <option value="4">GroupD</option>
+            <option selected value="5">GroupE</option>
+            <option value="6">GroupF</option>
+            <option value="7">GroupG</option>
+        </select>
+        </div>
+        <div class="btn-box col-sm-1" >
+            <!--实体字符-->
+            <div style="width:60px;text-align: left;">
+                <button id="btn-sel" style="width:50px"> &gt;</button>
+                <button id="btn-sel-all" style="width:50px;display: block"> &gt;&gt;</button>
+                <button id="btn-back" style="width:50px"> &lt;</button>
+                <button id="btn-sel-none" style="width:50px;display: block"> &lt;&lt;</button>
+            </div>
+        </div>
+
+        <div class="col-sm-5">
+        <select multiple class="form-control"  name="groups" size="10">
+
+        </select>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="col-lg-12 m-t">
+        <form class="form-inline" id="search_form_wrap">
+            <div class="row p-w-m">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" placeholder="请选择开始时间" name="date_from" class="form-control"
+                               value="2018-05-08">
+                    </div>
+                </div>
+                <div class="form-group m-r m-l">
+                    <label>至</label>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" placeholder="请选择结束时间" name="date_to" class="form-control" value="2018-06-07">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-w-m btn-outline btn-primary search">搜索</a>
+                </div>
+            </div>
+            <hr>
+        </form>
+        <table class="table table-bordered m-t">
+            <thead>
+            <tr>
+                <th>日期</th>
+                <th>营收金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2018-06-07</td>
+                <td>1007.00</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="pagination_count" style="line-height: 40px;">共1条记录 | 每页50条</span>
+                <ul class="pagination pagination-lg pull-right" style="margin: 0 0 ;">
+                    <li class="active"><a href="javascript:void(0);">1</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block js %}
+
+<script src="{{ buildStaticUrl('/js/examset/index.js') }}"></script>
+{% endblock %}

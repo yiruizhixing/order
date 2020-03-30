@@ -1,0 +1,79 @@
+{% extends "common/layout_main.html" %}
+{% block content %}
+<div class="row  border-bottom">
+    <div class="col-lg-12">
+        <div class="tab_title">
+            <ul class="nav nav-pills">
+                <li >
+                    <a href="{{ buildUrl('/examset/index') }}">基本设置</a>
+                </li>
+                <li class="current">
+                    <a href="{{ buildUrl('/examset/kaodian') }}">考点设置</a>
+                </li>
+                <li>
+                    <a href="{{ buildUrl('/examset/kaochang') }}">考场设置</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row m-t">
+    <div class="col-lg-12" id="container"  >
+        {# 显示消息闪现的内容开始 #}
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            {{message }}
+        </div>
+        {% endfor %}
+        {# 显示消息闪现的内容结束 #}
+
+        <h3>考点设置：</h3>
+        <div class="hr-line-dashed col-sm-12" style="margin-top: 0px"></div>
+        <div class="col-sm-5 col-sm-offset-1">
+            <label >备选考点</label>
+        <select multiple class="form-control"  name="groups" size="10">
+            <option value="1">GroupA</option>
+            <option selected value="2">GroupB</option>
+            <option value="3">GroupC</option>
+            <option value="4">GroupD</option>
+            <option selected value="5">GroupE</option>
+            <option value="6">GroupF</option>
+            <option value="7">GroupG</option>
+        </select>
+        </div>
+        <div class="btn-box col-sm-1" >
+            <!--实体字符-->
+            <div style="width:60px;text-align: left;">
+                <div style="display: block;margin-bottom: 5px">&nbsp;</div>
+                <button id="btn-sel" style="width:50px"> &gt;</button>
+                <button id="btn-sel-all" style="width:50px;display: block"> &gt;&gt;</button>
+                <button id="btn-back" style="width:50px"> &lt;</button>
+                <button id="btn-sel-none1" style="width:50px;display: block"> &lt;&lt;</button>
+                <div style="display: block;margin-bottom: 5px">&nbsp;</div>
+                <button id="btn-sel-none2" style="width:50px;display: block"> 保存</button>
+            </div>
+        </div>
+
+        <div class="col-sm-5">
+            <label >已选考点</label>
+        <select multiple class="form-control"  name="groups" size="10">
+
+        </select>
+        </div>
+
+
+    </div>
+
+
+</div>
+{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block js %}
+
+<script src="{{ buildStaticUrl('/js/examset/index.js') }}"></script>
+{% endblock %}

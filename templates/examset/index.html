@@ -1,0 +1,182 @@
+{% extends "common/layout_main.html" %}
+{% block content %}
+<div class="row  border-bottom">
+    <div class="col-lg-12">
+        <div class="tab_title">
+            <ul class="nav nav-pills">
+                <li class="current">
+                    <a href="{{ buildUrl('/examset/index') }}">基本设置</a>
+                </li>
+                <li>
+                    <a href="{{ buildUrl('/examset/kaodian') }}">考点设置</a>
+                </li>
+                <li>
+                    <a href="{{ buildUrl('/examset/kaochang') }}">考场设置</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row m-t">
+    <div class="col-lg-12" id="container" >
+        {# 显示消息闪现的内容开始 #}
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            {{message }}
+        </div>
+        {% endfor %}
+        {# 显示消息闪现的内容结束 #}
+        <h3>基本设置：</h3>
+        <div class="hr-line-dashed col-sm-12" style="margin-top: 3px"></div>
+        <form class="form-horizontal"  >
+
+            <div class="form-group " >
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">考试名称：</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{session.exam_name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">考试科数：</label>
+                <div class="col-lg-10">
+                    {% for item in range(1,9) %}
+                    <label class="radio-inline" >
+                        <input type="radio" name="inlineRadioOptions" value="{{item}}" {% if item== info.keshu %}
+                               checked {% endif %} disabled> {{item}}
+                    </label>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">考试天数：</label>
+                <div class="col-lg-10">
+                  <select name="exam_days" class="form-control " tabindex="-1"
+                            aria-hidden="true" disabled>
+                      {% for item in range(1,9) %}
+                        {% set itemdata = item/2 %}
+                        <option value="{{ itemdata }}"{% if itemdata == info.days %} selected {% endif %}>{{ item/2 }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">餐补次数：</label>
+                <div class="col-lg-10">
+                    <select name="exam_canbu" class="form-control " tabindex="-1"
+                            aria-hidden="true" disabled>
+                        {% for item in range(5) %}
+                        <option value="{{ item }}" {% if item == info.canbu %} selected {% endif %}>{{ item }}
+                        </option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <a class="btn btn-w-m btn-outline btn-primary save " id='baseedt'>编辑</a>
+                    <a class="btn btn-w-m btn-outline btn-primary save disabled" id='basesave' style="margin-left: 10px" >保存</a>
+                </div>
+            </div>
+
+        </form>
+
+
+        <div class="hr-line-dashed"></div>
+        <h3>科目设置：</h3>
+        <div class="hr-line-dashed col-sm-12"></div>
+        <div class="col-lg-11 col-sm-offset-1" style="padding-left: 0px">
+            <table class="table table-bordered table-hover m-t" >
+            <thead>
+            <tr>
+                <th>科目场次</th>
+                <th>科目名称</th>
+                <th>开始时间</th>
+                <th>考试时长（分钟）</th>
+                <th>考场数量</th>
+                <th class="hidden">操作</th>
+            </tr>
+            </thead>
+            <tbody id="j_tb">
+
+            {% if kemu_info %}   {# 如果数据库中有原来的科目信息，就显示 #}
+                {% for item in kemu_info %}
+            <tr class="kemu">
+                <td>
+                    <button class="form-control" name="changci" type="text">{{item.changci}}</button>
+                </td>
+                <td><input class="form-control " name="kemuName" type="text" value="{{item.kemu_name}} " disabled ></td>
+                <td>
+                    <input type='text' class="form-control date" name="startTime" value="{{item.start_time}}" disabled>
+                </td>
+                <td><input class="form-control" type="number" min="0" name="lastTime" value="{{item.last_time}}" disabled
+                           onkeyup="value=value.replace(/[^\d\.\-]/g,'');"></td>
+                <td><input class="form-control" type="number" min="0" name="kaochang" value="{{item.kaochang}}" disabled
+                           onkeyup="value=value.replace(/[^\d\.\-]/g,'');"></td>
+                <td class="hidden">删除<input name="kemuid" class="hidden" value="{{item.id}}"></td>
+            </tr>
+                {% endfor %}
+                {% if (kemu_info|length ) < info.keshu %}  {# 如果数据库中的科目信息条数小于设置的科目数，就显示不足的空行 #}
+                    {% for item in range(0,info.keshu - kemu_info|length  ) %}
+            <tr class="kemu">
+                <td>
+                    <button class="form-control" name="changci" type="text">{{loop.index + kemu_info|length }}</button>
+                </td>
+                <td><input class="form-control" name="kemuName" type="text" disabled></td>
+                <td>
+                    <input type='text' class="form-control date" name="startTime" disabled>
+                </td>
+                <td><input class="form-control" type="number" min="0" name="lastTime"
+                           onkeyup="value=value.replace(/[^\d\.\-]/g,'');" value="120" disabled></td>
+                <td><input class="form-control" type="number" min="0" name="kaochang"
+                           onkeyup="value=value.replace(/[^\d\.\-]/g,'');" value="1" disabled></td>
+                <td class="hidden">删除<input name="kemuid" class="hidden" value="0"></td>
+            </tr>
+                    {% endfor %}
+                {% endif %}
+
+            {% else %}  {# 如果数据库中无科目信息，就显示空表 #}
+                {% for item in range(0,info.keshu) %}
+            <tr class="kemu">
+                <td>
+                    <button class="form-control" name="changci" type="text">{{loop.index}}</button>
+                </td>
+                <td><input class="form-control" name="kemuName" type="text"></td>
+                <td>
+                    <input type='text' class="form-control date" name="startTime" >
+                </td>
+                <td><input class="form-control" type="number" min="0" name="lastTime"
+                           onkeyup="value=value.replace(/[^\d\.\-]/g,'');" value="120"></td>
+                <td><input class="form-control" type="number" min="0" name="kaochang"
+                           onkeyup="value=value.replace(/[^\d\.\-]/g,'');" value="1"></td>
+                <td class="hidden">删除<input name="kemuid" class="hidden" value="0"></td>
+            </tr>
+                {% endfor %}
+            {% endif %}
+
+            </tbody>
+            </table>
+            <div class="form-group">
+                    <a class="btn btn-w-m btn-outline btn-primary save" id='kemuedt'>编辑</a>
+                    <a class="btn btn-w-m btn-outline btn-primary save {% if kemu_info %}disabled{% endif %}" id='kemuSave'>保存</a>
+                    <a class="btn btn-w-m btn-outline btn-primary  {% if not kemu_info %}disabled{% endif %}" id='kemuDel'>全部删除</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block css %}
+<link href="{{ buildStaticUrl('/plugins/datetimepicker/jquery.datetimepicker.min.css') }}" rel="stylesheet">
+<!--<link href="https://www.a5xiazai.com/demo/code_pop/18/1202/jquery.datetimepicker.css" rel="stylesheet">-->
+{% endblock %}
+{% block js %}
+<script src="{{ buildStaticUrl('/plugins/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
+
+<!--<script src="https://www.a5xiazai.com/demo/code_pop/18/1202/jquery.datetimepicker.js"></script>-->
+<script src="{{ buildStaticUrl('/js/examset/index.js') }}"></script>
+{% endblock %}

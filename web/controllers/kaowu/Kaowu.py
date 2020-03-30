@@ -33,7 +33,7 @@ def kqarrange():
             for ele in query:
                 dic1 = {'id': ele.id, 'text': ele.name}
                 data.append(dic1)
-            # data1 = [{'id': 1, 'text': '张三'}, {'id': 2, 'text': 'lisi'}, {'id': 3, 'text': '王五'}]
+            # data1 = [{'id': 1, 'text': '张三'}, {'id': 2, 'text': 'lisi'}, {'id': 3, 'text': '王五'}]  # 测试数据
             return jsonify(data)
 
         # id = req['id'] if 'id' in req else 0
@@ -83,9 +83,7 @@ def kdarrange():
     resp = {'code': 200, 'msg': '操作成功', 'data': ''}
     req = request.values  # 参数多时用values ,参数少时用args
 
-    resp['msg'] = g.current_exam
 
-    # return jsonify(resp)
 
     return ops_render("kaowu/kdarrange.html")
 

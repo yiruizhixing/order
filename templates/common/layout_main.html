@@ -27,15 +27,15 @@
                     <a href="{{ buildUrl('/') }}"><i class="fa fa-dashboard fa-lg"></i>
                         <span class="nav-label">首页</span></a>
                 </li>
-
-                <li class="food">
-                    <a href="{{ buildUrl('/food/index') }}"><i class="fa fa-book fa-lg"></i> <span
-                            class="nav-label">考试通知</span></a>
-                </li>
                 <li class="examset">
                     <a href="{{ buildUrl('/examset/index') }}"><i class="fa fa-book fa-lg"></i> <span
                             class="nav-label">考试设置</span></a>
                 </li>
+                <li class="food">
+                    <a href="{{ buildUrl('/food/index') }}"><i class="fa fa-book fa-lg"></i> <span
+                            class="nav-label">巡考报名</span></a>
+                </li>
+
                 <li class="kaowu">
                     <a href="{{ buildUrl('/kaowu/index') }}"><i class="fa fa-book fa-lg"></i> <span
                             class="nav-label">考务管理</span></a>
@@ -120,7 +120,7 @@
                             当前考试：
                         </span>
                         <span class="m-r-sm text-muted welcome-message " style="color: #060303">
-                            {{session.examid}}-{{session.exam_name}}【{{session.exam_status}}】<a id="g_btn_examchoose" href="{{ buildUrl('/exam/choose') }}"> 选择考试 </a>
+                            <span id="examid">{{session.examid}}</span> -<span id="exam_name">{{session.exam_name}}</span> 【{{session.exam_status}}】<a id="g_btn_examchoose" href="{{ buildUrl('/exam/choose') }}"> 选择考试 </a>
                         </span>
 
                     </li>

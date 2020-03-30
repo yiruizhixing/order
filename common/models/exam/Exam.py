@@ -42,6 +42,10 @@ class Exam(db.Model):
     summary = db.Column(db.String(300), nullable=False, server_default=db.FetchedValue())
     exam_status = db.Column(db.ForeignKey('dic_status.status_id', onupdate='CASCADE'), nullable=False, index=True)
     exam_cat = db.Column(db.ForeignKey('dic_status.status_id', onupdate='CASCADE'), nullable=False, index=True)
+    keshu = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
+    canbu = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
+    days = db.Column(db.Float, nullable=False, server_default=db.FetchedValue())
+    kaodian = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue())
     updated_time = db.Column(db.DateTime, nullable=False, server_default=db.FetchedValue())
     created_time = db.Column(db.DateTime, nullable=False, server_default=db.FetchedValue())
 

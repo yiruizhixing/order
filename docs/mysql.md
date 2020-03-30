@@ -72,39 +72,50 @@ CREATE TABLE `dic_status` (
 DROP TABLE IF EXISTS `exam_list`;
 
 CREATE TABLE `exam_list` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `exam_name` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '考试名称',
-  `exam_code` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '考试代码',
-  `abbreviation` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '考试简称',
-  `exam_date` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '考试年月',
-  `summary` VARCHAR(300) NOT NULL DEFAULT '' COMMENT '描述',
-  `exam_status` INT(11) UNSIGNED NOT NULL  COMMENT '状态 归档  启用  关闭',
-  `exam_cat` INT(11) UNSIGNED NOT NULL COMMENT '考试类别 1：专业技术 2：执业资格 3：公务员事业单位 4：社会化 5：其他 ',
-  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
-  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `exam_name` varchar(200) NOT NULL DEFAULT '' COMMENT '考试名称',
+  `exam_code` varchar(50) NOT NULL DEFAULT '' COMMENT '考试代码',
+  `abbreviation` varchar(50) NOT NULL DEFAULT '' COMMENT '考试简称',
+  `exam_date` varchar(50) NOT NULL DEFAULT '' COMMENT '考试年月',
+  `summary` varchar(300) NOT NULL DEFAULT '' COMMENT '描述',
+  `exam_status` int(11) unsigned NOT NULL COMMENT '状态 归档  启用  关闭',
+  `exam_cat` int(11) unsigned NOT NULL COMMENT '考试类别 1：专业技术 2：执业资格 3：公务员事业单位 4：社会化 5：其他 ',
+  `keshu` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '科数',
+  `days` float unsigned NOT NULL DEFAULT '1' COMMENT '天数',
+  `canbu` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '餐补次数',
+  `kaodian` varchar(200) NOT NULL DEFAULT '' COMMENT '考点',
+  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
   PRIMARY KEY (`id`),
-  CONSTRAINT `exam_status` FOREIGN KEY (`exam_status`) REFERENCES `dic_status` (`status_id`) ON UPDATE CASCADE,
-  CONSTRAINT `exam_cat` FOREIGN KEY (`exam_cat`) REFERENCES `dic_status` (`status_id`) ON UPDATE CASCADE
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='考试列表';
+  KEY `exam_status` (`exam_status`),
+  KEY `exam_cat` (`exam_cat`),
+  CONSTRAINT `exam_cat` FOREIGN KEY (`exam_cat`) REFERENCES `dic_status` (`status_id`) ON UPDATE CASCADE,
+  CONSTRAINT `exam_status` FOREIGN KEY (`exam_status`) REFERENCES `dic_status` (`status_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='考试列表'
 
 
 5、考试科目表exam_kemu
 
 DROP TABLE IF EXISTS `exam_kemu`;
 
-CREATE TABLE `exam_info` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `exam_id` INT(11) NOT NULL DEFAULT '0' COMMENT '考试id',
-  `changci` varchar(200) NOT NULL DEFAULT '' COMMENT '场次名称',
-  `kemu` varchar(200) NOT NULL DEFAULT '' COMMENT '科目名称',
-  `time_start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
-  `time_end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '结束时间',
-  `kaochang` int(11) NOT NULL DEFAULT '0' COMMENT '考场数量',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1：有效 0：无效',
-  `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
-  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='考试科目表';
+CREATE TABLE `exam_kemu` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `exam_id` INT(11) UNSIGNED NOT NULL  COMMENT '考试id',
+  `exam_name` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '考试名称',
+  `changci` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '场次名称',
+  `kemu_name` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '科目名称',
+  `start_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
+  `last_time` INT(11)  UNSIGNED NOT NULL COMMENT '科目时长',
+  `kaochang` INT(11) NOT NULL DEFAULT '0' COMMENT '考场数量',
+  `status` TINYINT(1) NOT NULL DEFAULT '1' COMMENT '状态 1：有效 0：无效',
+  `beizhu1` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注1',
+  `beizhu2` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注2',
+  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `exam_id2` FOREIGN KEY (`exam_id`) REFERENCES `exam_list` (`id`) ON UPDATE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='考试科目表';
+
 
 
 6、考点库kaodian
@@ -150,8 +161,3 @@ CREATE TABLE `exam_kaowu` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='考务安排表';
 
 
-8、考试设置表exam_set
-
-
-  `workdays` int(11) NOT NULL DEFAULT '' COMMENT '考试天数',
-  `canbu` int(11) NOT NULL DEFAULT '' COMMENT '餐补天数',
