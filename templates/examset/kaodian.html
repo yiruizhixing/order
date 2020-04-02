@@ -34,33 +34,35 @@
         <div class="hr-line-dashed col-sm-12" style="margin-top: 0px"></div>
         <div class="col-sm-5 col-sm-offset-1">
             <label >备选考点</label>
-        <select multiple class="form-control"  name="groups" size="10">
-            <option value="1">GroupA</option>
-            <option selected value="2">GroupB</option>
-            <option value="3">GroupC</option>
-            <option value="4">GroupD</option>
-            <option selected value="5">GroupE</option>
-            <option value="6">GroupF</option>
-            <option value="7">GroupG</option>
+        <select  class="form-control" id="src-kaodian" name="groups" size="10">
+            {% if list %}
+            {% for item in list  %}
+             <option value="{{item.id}}" >{{item.name}}</option>
+            {% endfor %}
+            {% endif %}
         </select>
         </div>
         <div class="btn-box col-sm-1" >
-            <!--实体字符-->
+            <!--实体字符 中间操作按钮-->
             <div style="width:60px;text-align: left;">
                 <div style="display: block;margin-bottom: 5px">&nbsp;</div>
                 <button id="btn-sel" style="width:50px"> &gt;</button>
-                <button id="btn-sel-all" style="width:50px;display: block"> &gt;&gt;</button>
+                <!--<button id="btn-sel-all" style="width:50px;display: block"> &gt;&gt;</button>-->
                 <button id="btn-back" style="width:50px"> &lt;</button>
-                <button id="btn-sel-none1" style="width:50px;display: block"> &lt;&lt;</button>
+                <!--<button id="btn-back-all" style="width:50px;display: block"> &lt;&lt;</button>-->
                 <div style="display: block;margin-bottom: 5px">&nbsp;</div>
-                <button id="btn-sel-none2" style="width:50px;display: block"> 保存</button>
+                <button id="btn-kaodian-save" style="width:50px;display: block"> 保存</button>
             </div>
         </div>
 
         <div class="col-sm-5">
             <label >已选考点</label>
-        <select multiple class="form-control"  name="groups" size="10">
-
+        <select  class="form-control"  id="tar-kaodian" name="groups" size="10">
+            {% if exam_kaodian_list %}
+            {% for item in exam_kaodian_list  %}
+             <option value="{{item.kaodian_id}}" >{{item.kaodian_name}}</option>
+            {% endfor %}
+            {% endif %}
         </select>
         </div>
 
@@ -75,5 +77,5 @@
 {% endblock %}
 {% block js %}
 
-<script src="{{ buildStaticUrl('/js/examset/index.js') }}"></script>
+<script src="{{ buildStaticUrl('/js/examset/kaodian.js') }}"></script>
 {% endblock %}

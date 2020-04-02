@@ -160,4 +160,28 @@ CREATE TABLE `exam_kaowu` (
   CONSTRAINT `name_id` FOREIGN KEY (`name_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='考务安排表';
 
+8、考点安排表exam_kaodian
 
+DROP TABLE IF EXISTS `exam_kaodian`;
+
+CREATE TABLE `exam_kaodian` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `exam_id` INT(11) UNSIGNED NOT NULL  COMMENT '考试id',
+  `exam_name` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '考试名称',
+  `kaodian_id` INT(11) UNSIGNED NOT NULL  COMMENT '考点id',
+  `kaodian_name` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '考点名称',
+  `kaodian_address` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '考点地址',
+  `kaochang` INT(11) NOT NULL DEFAULT '0' COMMENT '考场数量',
+  `kaochang_stnum` INT(11) NOT NULL DEFAULT '1' COMMENT '起始考场号',
+  `kemu` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '考试科目',
+  `xunkao_num` INT(11) NOT NULL DEFAULT '0' COMMENT '巡考人员数量',
+  `menjian_num` INT(11) NOT NULL DEFAULT '0' COMMENT '门检人员数量',
+  `beizhu1` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注1',
+  `beizhu2` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注2',
+  `beizhu3` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注3',
+  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `exam_id3` FOREIGN KEY (`exam_id`) REFERENCES `exam_list` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `kaodian_id` FOREIGN KEY (`kaodian_id`) REFERENCES `kaodian` (`id`) ON UPDATE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='考点安排表';

@@ -21,3 +21,5 @@ flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables exam --outfil
 flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables exam_kaowu --outfile "common/models/exam/Exam_kaowu.py"  --flask
 
 flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables exam_kemu --outfile "common/models/exam/Exam_kemu.py"  --flask
+
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables exam_kaodian --outfile "common/models/exam/Exam_kaodian.py"  --flask

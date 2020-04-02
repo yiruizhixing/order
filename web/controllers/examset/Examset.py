@@ -3,15 +3,16 @@ from flask import Blueprint, flash, request, jsonify, redirect, session
 from common.libs.Helper import ops_render, getCurrentDate
 from common.models.exam.Exam import Exam
 from common.models.exam.Exam_kemu import ExamKemu
-from application import db
+from common.models.exam.Kaodian import Kaodian
+from common.models.exam.Exam_kaodian import ExamKaodian
+from application import db, app
 import json
 from common.libs.UrlManager import UrlManager
 
 
-
 route_examset = Blueprint('examset_page', __name__)
 
-
+# 基本设置 首页显示 基本设置保存
 @route_examset.route( "/index", methods=["GET", "POST"] )
 def index():
     if request.method == "GET":
@@ -133,9 +134,64 @@ def kemudel():
     return jsonify(resp)
 
 
-@route_examset.route( "/kaodian" )
+# 考点设置
+@route_examset.route( "/kaodian", methods=["GET", "POST"] )
 def kaodian():
-    return ops_render( "examset/kaodian.html" )
+    examid = int(session.get("examid"))  # 当前考试id
+    exam_kaodian_list = ExamKaodian.query.filter_by(exam_id=examid)   # 查出已经安排的考点表  有了.all() 返回的就是列表
+    exam_kaodian_list_temp = exam_kaodian_list.all()                  # 有了.all() 返回的就是列表
+    old_temp = []
+    for temp in exam_kaodian_list_temp:
+        old_temp.append(temp.kaodian_id)                                # 列表 临时存放原有已选 考点id
+
+    if request.method == "GET":
+        resp_data = {}
+        query = Kaodian.query                                    # 查出全部考点
+        query = query.filter(Kaodian.status == 1)                # 考点有效无效查询
+        kaodian_list = query.order_by(Kaodian.id.asc()).all()    # 使用正序排  # .all()  为取出所有的数据 然后存到列表kaodian_list
+        kaodian_list_temp = []
+        for temp in kaodian_list:                                # 如果考点没有在已选考点表中，则加入备选表中
+            if temp.id not in old_temp:
+                kaodian_list_temp.append(temp)
+        resp_data['list'] = kaodian_list_temp                    # 备用考点列表
+        resp_data['exam_kaodian_list'] = exam_kaodian_list       # 已选考点列表
+        resp_data['current'] = 'kaodian'
+        return ops_render( "examset/kaodian.html", resp_data )
+    # post
+    exam_name = session.get("exam_name")  # 当前考试name
+    resp = {'code': 200, 'msg': '操作成功', 'data': ''}
+    req = request.values                              # 参数多时用values ,参数少时用args
+    # 将JSON数据解码为dict（字典）
+    new_kaodiandata = json.loads(req['data'])
+    new_temp = []                                     # 列表 临时存放新选 考点id
+    for temp in new_kaodiandata:                      # 添加每条记录
+        new_temp.append(int(temp['kaodianid']))
+        # 查出考点安排表中原有的安排
+        exam_kaodian_have = exam_kaodian_list.filter(ExamKaodian.kaodian_id == int(temp['kaodianid'])).first()
+        if not exam_kaodian_have:                     # 若原有的安排表中没有，则填加  ----新增考点
+            exam_kaodian_info = ExamKaodian()
+            exam_kaodian_info.exam_id = examid
+            exam_kaodian_info.exam_name = exam_name
+            exam_kaodian_info.kaodian_id = int(temp['kaodianid'])
+            exam_kaodian_info.kaodian_name = temp['kaodianname']
+            exam_kaodian_info.created_time = getCurrentDate()
+            exam_kaodian_info.updated_time = getCurrentDate()
+            db.session.add(exam_kaodian_info)
+
+    # 若原有的安排表中有，新安排表中无，则删除  ----删除考点
+    for tempi in old_temp:
+        if tempi not in new_temp:
+            exam_kaodian_del_info = ExamKaodian.query.filter(ExamKaodian.exam_id == examid, ExamKaodian.kaodian_id == tempi).first()
+            db.session.delete(exam_kaodian_del_info)
+    # 提交信息
+    try:
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        resp['code'] = -1
+        resp['msg'] = "提交数据库出错"
+        db.session.rollback()
+    return jsonify(resp)
 
 
 
