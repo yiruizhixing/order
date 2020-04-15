@@ -32,15 +32,15 @@ var kaowu_arrange_ops ={
                     },
                     cache: true
                 },
-                minimumInputLength: 1
+                minimumInputLength: 1     //最少输入的查询字符长度
 
-        })
+        });
 
         /** 考区人员新增按钮*/
         $("#kaoqu_btnAdd").click(function () {
             $('#j_formAdd').show();
             $('#j_mask').show();
-        })
+        });
         /** 考区人员新增窗口的关闭操作*/
         $('#j_hideFormAdd').click(function () {
             $('#j_formAdd').hide();

@@ -2,236 +2,177 @@
 {% extends "common/layout_main.html" %}
 {% block content %}
 {% include "common/tab_kaowu.html" %}
-<style type="text/css">
-    .wrap_info img {
-        width: 70%;
-    }
 
-    .btnAdd {
-            width: 110px;
-            height: 30px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .form-item {
-            height: 100%;
-            position: relative;
-            padding-left: 100px;
-            padding-right: 20px;
-            margin-bottom: 34px;
-            line-height: 36px;
-        }
-
-        .form-item > .lb {
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: block;
-            width: 100px;
-            text-align: right;
-        }
-
-        .form-item > .txt {
-            width: 300px;
-            height: 32px;
-        }
-
-        .mask {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            opacity: 0.6;
-            display: none;
-        }
-
-        #j_hideFormAdd {
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            text-align: center;
-            line-height: 22px;
-            font-size: 18px;
-        }
-        #j_hideFormAdd:hover {
-            background-color: skyblue;
-        }
-        .form-add {
-            position: fixed;
-            top: 30%;
-            left: 50%;
-            margin-left: -197px;
-            padding-bottom: 20px;
-            background: #fff;
-            display: none;
-        }
-
-        .form-add-title {
-            background-color: #f7f7f7;
-            border-width: 1px 1px 0 1px;
-            border-bottom: 15px;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .form-add-title span {
-            width: auto;
-            height: 30px;
-            font-size: 16px;
-            font-family: 宋体;
-            font-weight: bold;
-            color: rgb(102, 102, 102);
-            text-indent: 12px;
-            padding: 8px 0px 10px;
-            margin-right: 10px;
-            display: block;
-            overflow: hidden;
-            text-align: left;
-        }
-
-        .form-add-title div {
-            width: 16px;
-            height: 20px;
-            position: absolute;
-            right: 10px;
-            top: 6px;
-            font-size: 30px;
-            line-height: 16px;
-            cursor: pointer;
-        }
-
-        .form-submit {
-            text-align: center;
-        }
-
-        .form-submit input {
-            width: 170px;
-            height: 32px;
-        }
-
-</style>
 <div class="row m-t wrap_info">
     <div class="col-lg-12">
         <div class="row">
             <div class="col-lg-12">
                 <div class="m-b-m-b-mdmd">
                     <input class="btn btn-outline btn-primary pull-right" type="button" value="+新增" id="kaoqu_btnAdd">
-                    <h3>考区人员：</h3>
+                    <h3>已报名人员：</h3>
                 </div>
             </div>
         </div>
-          <table class="table table-bordered m-t">
-            <thead>
-            <tr>
-                <th>岗位</th>
-                <th>姓名</th>
-                <th>备注</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody id="j_tb">
-             {% if kaoqu_list %}
-                {% for item in kaoqu_list %}
-            <tr>
-                <td>{{ item.job }}</td>
-                <td>{{ item.name.name  }}</td>
-                <td>{{ item.beizhu1 }}</td>
-                <td>
-                    <a href="{{ buildUrl('/people/info') }}?id={{ item.id  }}">
-                        <i class="fa fa-eye fa-lg"></i>
-                    </a>
-                     {%  if item.status == 1 %}
-                    <a class="m-l" href="{{ buildUrl('/people/set') }}?id={{ item.id  }}">
-                        <i class="fa fa-edit fa-lg"></i>
-                    </a>
 
-                    <a class="m-l remove" href="javascript:void(0);" data="{{ item.id  }}">
-                        <i class="fa fa-trash fa-lg"></i>
-                    </a>
-                    {% else %}
-                       <a class="m-l recover" href="javascript:void(0);" data="{{ item.id  }}">
-                        <i class="fa fa-rotate-left fa-lg"></i>
-                    </a>
-                    {% endif %}
-                </td>
-            </tr>
-             {% endfor %}
-            {% else %}
-                <tr><td colspan="6">暂无数据~~</td></tr>
-            {% endif %}
-            </tbody>
-        </table>
 
         <!--<div class="row">-->
             <!--<div class="col-lg-12">-->
 
                 <!--<p></p>-->
             <!--</div>-->
-        </div>
+
         <div class="row m-t">
             <div class="col-lg-12">
                 <div class="panel blank-panel">
                     <div class="panel-heading">
                         <div class="panel-options">
                             <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#tab-1" data-toggle="tab" aria-expanded="false">参加考试历史</a>
-                                </li>
+                                {% if kaodian_list %}
+                                    {% for item in kaodian_list %}
+                                    <li class="{% if loop.index == 1 %}active{% endif %}">
+                                    <a href="#tab-{{item.kaodian_id}}" data-toggle="tab" aria-expanded="false">{{item.kaodian_name}}</a>
+                                    </li>
+                                    {% endfor %}
+                                {% else %}
                                 <li>
-                                    <a href="#tab-2" data-toggle="tab" aria-expanded="true">库存变更</a>
+                                    <a href="#" data-toggle="tab" aria-expanded="true">尚未设置本次考试的考点</a>
                                 </li>
+                                {% endif %}
+                                <!--<li class="active">-->
+                                    <!--<a href="#tab-1" data-toggle="tab" aria-expanded="false">考点1</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#tab-2" data-toggle="tab" aria-expanded="true">考点2</a>-->
+                                <!--</li>-->
                             </ul>
                         </div>
                     </div>
 
                     <div class="panel-body">
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tab-1">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>会员名称</th>
-                                        <th>购买数量</th>
-                                        <th>购买价格</th>
-                                        <th>订单状态</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td colspan="4">暂无销售记录</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-pane" id="tab-2">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>变更</th>
-                                        <th>备注</th>
-                                        <th>时间</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% if stock_change_list %}
-                                        {% for item in stock_change_list %}
-                                    <tr>
-                                        <td>{{item.unit}}</td>
-                                        <td>{{item.note}}</td>
-                                        <td>{{item.created_time}}</td>
-                                    </tr>
-                                        {% endfor %}
-                                    {% else %}
-                                    <tr><td colspan="3">暂无数据</td> </tr>
-                                    {% endif %}
+                            {% if kaodian_list %}
+                                {% for item in kaodian_list %}
+                                <div class="tab-pane {% if loop.index == 1 %}active{% endif %} "  id="tab-{{item.kaodian_id}}">
+                                    <a hidden>{{item.kaodian_name}}</a>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="m-b-m-b-mdmd">
+                                                    <input class="btn btn-outline btn-primary pull-right" type="button"
+                                                           value="+新增" id="kaodian_btnAdd">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table table-bordered table-hover m-t">
+                                            <thead>
+                                            <tr style="text-align: center">
+                                                <th style="width:100px;text-align: center">巡视组长</th>
+                                                <th style="width:100px;text-align: center">副巡视组长</th>
+                                                <th style="width:100px;text-align: center">试卷押运</th>
+                                                <th style="width:100px;text-align: center">流动巡视</th>
+                                                <th style="text-align: center">巡视人员</th>
+                                                <th style="width:100px;text-align: center">反作弊小组</th>
+                                                <th style="width:100px;text-align: center">治安门检</th>
+                                                <th style="width:100px;text-align: center">司机</th>
+                                                <th style="width:100px;text-align: center">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="j_tb">
+
+                                            {% if kaodian_people_list %}
+                                            <tr class="{{item.kaodian_id}}">
+                                                <td  style="height: 150px"><select class="txt" name="6"  multiple="multiple" style="width: 100%">
+                                                    {% for pitem in kaodian_people_list %}
+                                                        {% if pitem.kaodian == item.kaodian_name and pitem.job_id == 6 %}<option value="{{pitem.name_id}}" selected="selected">{{pitem.name.name}}</option>{% endif %}
+                                                    {% endfor %}
+                                                </select><a hidden>巡视组长</a></td>
+                                                <td><select class="txt" name="7"   multiple="multiple" style="width: 100%">
+                                                    {% for pitem in kaodian_people_list %}
+                                                        {% if pitem.kaodian == item.kaodian_name and pitem.job_id == 7 %}<option value="{{pitem.name_id}}" selected="selected">{{pitem.name.name}}</option>{% endif %}
+                                                    {% endfor %}
+                                                </select><a hidden>副巡视组长</a></td>
+                                                <td><select class="txt" name="18"  multiple="multiple" style="width: 100%">
+                                                    {% for pitem in kaodian_people_list %}
+                                                        {% if pitem.kaodian == item.kaodian_name and pitem.job_id == 18 %}<option value="{{pitem.name_id}}" selected="selected">{{pitem.name.name}}</option>{% endif %}
+                                                    {% endfor %}
+                                                </select><a hidden>试卷押运</a></td>
+                                                <td><select class="txt" name="9"   multiple="multiple" style="width: 100%">
+                                                    {% for pitem in kaodian_people_list %}
+                                                        {% if pitem.kaodian == item.kaodian_name and pitem.job_id == 9 %}<option value="{{pitem.name_id}}" selected="selected">{{pitem.name.name}}</option>{% endif %}
+                                                    {% endfor %}
+                                                </select><a hidden>流动巡视</a></td>
+                                                <td><select class="txt xunshi" name="8" multiple="multiple"  id="xunshi-{{item.kaodian_id}}"  style="width: 100%">
+                                                    {% for pitem in kaodian_people_list %}
+                                                        {% if pitem.kaodian == item.kaodian_name and pitem.job_id == 8 %}<option value="{{pitem.name_id}}" selected="selected">{{pitem.name.name}}</option>{% endif %}
+                                                    {% endfor %}
+                                                </select><a hidden>巡视</a></td>
+                                                <td><select class="txt" name="19"  multiple="multiple" style="width: 100%">
+                                                    {% for pitem in kaodian_people_list %}
+                                                        {% if pitem.kaodian == item.kaodian_name and pitem.job_id == 19 %}<option value="{{pitem.name_id}}" selected="selected">{{pitem.name.name}}</option>{% endif %}
+                                                    {% endfor %}
+                                                </select><a hidden>反作弊</a></td>
+                                                <td><select class="txt" name="10"  multiple="multiple" style="width: 100%">
+                                                    {% for pitem in kaodian_people_list %}
+                                                        {% if pitem.kaodian == item.kaodian_name and pitem.job_id == 10 %}<option value="{{pitem.name_id}}" selected="selected">{{pitem.name.name}}</option>{% endif %}
+                                                    {% endfor %}
+                                                </select><a hidden>治安门检</a></td>
+                                                <td>
+                                                    <select class="txt" name="11"  multiple="multiple" style="width: 100%">
+                                                        {% for pitem in kaodian_people_list %}
+                                                            {% if pitem.kaodian == item.kaodian_name and pitem.job_id == 11 %}<option value="{{pitem.name_id}}" selected="selected">{{pitem.name.name}}</option>{% endif %}
+                                                        {% endfor %}
+                                                    </select><a hidden>试卷押运司机</a></td>
+                                                <td> <input class="btn btn-outline btn-primary pull-right" type="button"
+                                                           value="编辑" ><br><input class="btn btn-outline btn-primary pull-right" type="button"
+                                                           value="保存" style="margin-top: 5px"></td>
+                                            </tr>
+
+                                            {% endif %}
 
 
-                                    </tbody>
-                                </table>
-                            </div>
+
+
+                                            {% if kaoqu_people_list %}
+                                            {% for item in kaoqu_people_list %}
+                                            <tr>
+                                                <td>{{ loop.index }}</td>
+                                                <td>{{ item.job }}</td>
+                                                <td>{{ item.name.name }}</td>
+                                                <td>{{ item.beizhu1 }}</td>
+                                                <td>
+                                                    <a href="{{ buildUrl('/people/info') }}?id={{ item.name_id  }}">
+                                                        <i class="fa fa-eye fa-lg"></i>
+                                                    </a>
+
+                                                    <a class="m-l remove" href="javascript:void(0);"
+                                                       data="{{ item.id  }}">
+                                                        <i class="fa fa-trash fa-lg"></i>
+                                                    </a>
+                                                    <span style="display: none">{{ item.id }}</span>
+
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% else %}
+                                            <tr>
+                                                <td colspan="6">暂无数据~~</td>
+                                            </tr>
+                                            {% endif %}
+                                            </tbody>
+                                        </table>
+
+                                        <!--<div class="row">-->
+                                        <!--<div class="col-lg-12">-->
+
+                                        <!--<p></p>-->
+                                        <!--</div>-->
+                                    </div>
+
+
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
@@ -240,40 +181,19 @@
     </div>
 </div>
 
-    <!--遮罩层-->
-    <div id="j_mask" class="mask"></div>
-    <!--添加考区数据的表单-->
-    <div id="j_formAdd" class="form-add">
-        <div class="form-add-title">
-            <span>添加考区人员</span>
 
-            <div id="j_hideFormAdd">×</div>
-        </div>
-        <div class="form-item">
-            <label class="lb" for="j_txtCatname">岗位:</label>
-            <!--<input class="txt" type="text" id="j_txtCatname" placeholder="请选择岗位">-->
-             <select name="j_txtCatname" class="form-control select2-hidden-accessible" tabindex="-1"
-                            aria-hidden="true">
-                        <option value="8">巡视</option>
-                        {% for item in cat_list %}
-                        <option value="{{ item.id }}">{{item.name}}</option>
-                        {% endfor %}
-             </select>
-        </div>
-        <div class="form-item">
-            <label class="lb" for="j_txtName">姓名:</label>
-            <input class="txt" type="text" id="j_txtName" value="">
-        </div>
-        <div class="form-item">
-            <label class="lb" for="j_txtMark">备注:</label>
-            <input class="txt" type="text" id="j_txtMark" value="">
-        </div>
-        <div class="form-submit">
-            <input type="button" value="添加" id="j_btnAdd">
-        </div>
-    </div>
 
 {% endblock %}
+{% block css %}
+<link href="{{ buildStaticUrl('/plugins/tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet">
+<link href="{{ buildStaticUrl('/plugins/tagsinput/keyword.css') }}" rel="stylesheet">
+<link href="{{ buildStaticUrl('/plugins/select2/select2.min.css') }}" rel="stylesheet">
+{% endblock %}
 {% block js %}
-<script src="{{ buildStaticUrl('/js/kaowu/arrange.js') }}"></script>
+<script src="{{ buildStaticUrl('/plugins/tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ buildStaticUrl('/plugins/tagsinput/typeahead.bundle.js') }}"></script>
+
+<script src="{{ buildStaticUrl('/plugins/select2/select2.pinyin.js') }}"></script>
+<script src="{{ buildStaticUrl('/plugins/select2/zh-CN.js') }}"></script>
+<script src="{{ buildStaticUrl('/js/kaowu/kdarrange.js') }}"></script>
 {% endblock %}

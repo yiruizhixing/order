@@ -16,11 +16,12 @@ class ExamKaowu(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     exam_id = db.Column(db.ForeignKey('exam_list.id', onupdate='CASCADE'), nullable=False, index=True)
     name_id = db.Column(db.ForeignKey('people.id', onupdate='CASCADE'), nullable=False, index=True)
+    job_id = db.Column(db.ForeignKey('people_cat.id', onupdate='CASCADE'), nullable=False, index=True)
     job = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue())
     workplace = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue())
     kaodian = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue())
     kaochang = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue())
-    workdays = db.Column(db.Integer, nullable=False)
+    workdays = db.Column(db.Float, nullable=False, server_default=db.FetchedValue())
     canbu = db.Column(db.Integer, nullable=False)
     beizhu1 = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue())
     beizhu2 = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue())
@@ -30,6 +31,7 @@ class ExamKaowu(db.Model):
 
     exam = db.relationship('Exam', primaryjoin='ExamKaowu.exam_id == Exam.id', backref='exam_kaowus')
     name = db.relationship('People', primaryjoin='ExamKaowu.name_id == People.id', backref='exam_kaowus')
+    jobid = db.relationship('PeopleCat', primaryjoin='ExamKaowu.job_id == PeopleCat.id', backref='exam_kaowus')
 
 
 

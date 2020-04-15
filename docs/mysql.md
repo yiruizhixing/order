@@ -138,27 +138,34 @@ CREATE TABLE `kaodian` (
 
 7、考务安排表exam_kaowu
 
-DROP TABLE IF EXISTS `exam_kaowu`;
 
+DROP TABLE IF EXISTS `exam_kaowu`;
 CREATE TABLE `exam_kaowu` (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `exam_id` INT(11) UNSIGNED NOT NULL  COMMENT '考试id',
-  `name_id` INT(11) UNSIGNED NOT NULL  COMMENT '姓名id',
-  `job` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '工作岗位',
-  `workplace` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '工作层级：考区、考点、考场、其他',
+  `exam_id` INT(11) UNSIGNED NOT NULL COMMENT '考试id',
+  `name_id` INT(11) UNSIGNED NOT NULL COMMENT '姓名id',
+  `job_id` INT(11) UNSIGNED NOT NULL COMMENT '岗位id',
+  `job` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '工作岗位',
+  `workplace` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '工作层级：考区、考点、考场、其他',
   `kaodian` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '工作考点',
   `kaochang` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '工作考场',
-  `workdays` int(11)  UNSIGNED NOT NULL COMMENT '工作天数',
-  `canbu` int(11)  UNSIGNED NOT NULL COMMENT '餐补天数',
+  `workdays` FLOAT UNSIGNED NOT NULL COMMENT '工作天数',
+  `canbu` INT(11) UNSIGNED NOT NULL COMMENT '餐补天数',
   `beizhu1` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '备注一',
   `beizhu2` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '备注二',
   `beizhu3` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '备注三',
   `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
   `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
   PRIMARY KEY (`id`),
+  KEY `exam_id` (`exam_id`),
+  KEY `name_id` (`name_id`),
+  KEY `job_id` (`job_id`),
   CONSTRAINT `exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam_list` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `name_id` FOREIGN KEY (`name_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='考务安排表';
+  CONSTRAINT `name_id` FOREIGN KEY (`name_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `job_id` FOREIGN KEY (`job_id`) REFERENCES `people_cat` (`id`) ON UPDATE CASCADE
+) ENGINE=INNODB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COMMENT='考务安排表'
+
+
 
 8、考点安排表exam_kaodian
 
