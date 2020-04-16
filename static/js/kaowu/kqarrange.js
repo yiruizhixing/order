@@ -49,26 +49,24 @@ var kaowu_arrange_ops ={
        /** 考区人员新增窗口的保存操作*/
        $('#j_btnAdd').click(function () {
             //3.1 获取到用户输入的名称.
-
             var job_target = $(".form-item select[name=j_txtCatname]");  //获取用户输入的岗位名称
-            var job = job_target.val();
-
+            var job_id = job_target.val();                               // 获取岗位id
+            var job = job_target.find("option:selected").text();         // 获取岗位名称
             var txtName = $("#id_select2_j_txtName").select2("data")[0].text; //获取用户输入的姓名
             var txtNameid = $("#id_select2_j_txtName").select2("data")[0].id; //获取用户输入的id
 
             var txtMark = $('#j_txtMark').val(); //获取备注
            //alert('提示：' + $("#id_select2_j_txtName").select2('val'));
-           //console.log(txtNameid);
-
-
+           //console.log(job_target);
 
            btn_target.addClass("disabled");
 
             var data = {
                 job:job,
-                beizhu2:txtName,
-                beizhu1:txtMark,
-                name_id:txtNameid
+                job_id:job_id,
+                name:txtName,
+                beizhu1:txtMark,   //获取备注
+                name_id:txtNameid  //获取name id
             };
 
             $.ajax({

@@ -183,9 +183,9 @@
             <!--<input class="txt" type="text" id="j_txtCatname" placeholder="请选择岗位">-->
              <select name="j_txtCatname" class="form-control " tabindex="-1"
                             aria-hidden="true">
-                        <option value="巡视">巡视</option>
+                        <option value="8">巡视</option>
                         {% for item in cat_list %}
-                        <option value="{{ item.name }}">{{item.name}}</option>
+                        <option value="{{ item.id }}">{{item.name}}</option>
                         {% endfor %}
              </select>
         </div>
