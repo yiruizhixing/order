@@ -17,6 +17,7 @@ from web.controllers.examset.Examset import route_examset
 统一拦截器and 统一错误处理
 '''
 from web.interceptors.AuthInterceptor import *
+from web.interceptors.ApiAuthInterceptor import *
 from web.interceptors.ErrorInterceptor import *
 
 '''

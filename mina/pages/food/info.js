@@ -2,6 +2,7 @@
 //获取应用实例
 var app = getApp();
 var WxParse = require('../../wxParse/wxParse.js');
+var utils = require('../../utils/util.js');
 
 Page({
     data: {
@@ -20,45 +21,17 @@ Page({
         shopCarNum: 4,
         commentCount:2
     },
-    onLoad: function () {
+    onLoad: function (e) {
         var that = this;
-
         that.setData({
-            "info": {
-                "id": 1,
-                "name": "小鸡炖蘑菇",
-                "summary": '<p>多色可选的马甲</p><p><img src="http://www.timeface.cn/uploads/times/2015/07/071031_f5Viwp.jpg"/></p><p><br/>相当好吃了</p>',
-                "total_count": 2,
-                "comment_count": 2,
-                "stock": 2,
-                "price": "80.00",
-                "main_image": "/images/food.jpg",
-                "pics": [ '/images/food.jpg','/images/food.jpg' ]
-            },
-            buyNumMax:2,
-            commentList: [
-                {
-                    "score": "好评",
-                    "date": "2017-10-11 10:20:00",
-                    "content": "非常好吃，一直在他们加购买",
-                    "user": {
-                        "avatar_url": "/images/more/logo.png",
-                        "nick": "angellee 🐰 🐒"
-                    }
-                },
-                {
-                    "score": "好评",
-                    "date": "2017-10-11 10:20:00",
-                    "content": "非常好吃，一直在他们加购买",
-                    "user": {
-                        "avatar_url": "/images/more/logo.png",
-                        "nick": "angellee 🐰 🐒"
-                    }
-                }
-            ]
+            id:e.id               //从页面传入的参数中获取商品id
         });
 
-        WxParse.wxParse('article', 'html', that.data.info.summary, that, 5);
+    },
+
+    //每次进入页面都刷新显示详情
+    onShow:function(){
+        this.getInfo();         //显示详情
     },
     goShopCar: function () {
         wx.reLaunch({
@@ -77,7 +50,22 @@ Page({
         });
         this.bindGuiGeTap();
     },
+    //加入购物车
     addShopCar: function () {
+        var that = this;
+        var data ={
+            "id":this.data.info.id,
+            "number":this.data.buyNumber
+        };
+        wx.request({           //向服务器发送分 存入数据库
+            url: app.buildUrl("/cart/set"),
+            header: app.getRequestHeader(),        //头部信息，记录用户信息
+            method: 'POST',
+            data: data,
+            success: function (res) {
+
+            }
+        });
 
     },
     buyNow: function () {
@@ -126,5 +114,61 @@ Page({
         this.setData({
             swiperCurrent: e.detail.current
         })
+    },
+    //获取商品详情 函数
+    getInfo:function () {
+        var that = this;
+        wx.request({
+            url: app.buildUrl("/food/info"),
+            header: app.getRequestHeader(),
+            data:{
+                id:that.data.id
+            },
+            success: function (res) {
+                var resp = res.data;
+                if (resp.code != 200) {               //返回不成功
+                    app.alert({"content": resp.msg});
+                    return;
+                }
+                //var goods = resp.data.list;
+                that.setData({
+                    info:resp.data.info,
+                    buyNumMax:resp.data.info.stock,  //最大购买数量为库库值
+                });
+                WxParse.wxParse('article','html',that.data.info.summary,that,5);    //发送给wx富文本解析插件
+            }
+        });
+
+    },
+
+    // 页面分享设置
+    onShareAppMessage:function () {
+        var that = this;
+        var shareObj ={
+            title:that.data.info.name,
+            path:'page/food/info?id=' + that.data.info.id,
+            // 分享转发成功与失败的回调已于2018年取消
+            // success:function (res) {  //转发成功
+            //     console.info("转发成功");
+            //     wx.request({           //向服务器发送分享记录 存入数据库
+            //         url: app.buildUrl("/member/share"),
+            //         header: app.getRequestHeader(),        //头部信息，记录用户信息
+            //         method:'POST',
+            //         data: {
+            //             url:utils.getCurrentPageUrlWithArgs()
+            //         },
+            //         success: function (res) {
+            //
+            //         }
+            //     });
+            // },
+            // fail:function (res) {
+            //     //转发失败
+            //     console.info("失败");
+            // }
+        };
+        //console.info("转发");
+        // 返回shareObj
+　　    return shareObj;
     }
 });

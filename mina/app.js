@@ -53,7 +53,7 @@ App({
     console:function( msg ){
         console.log( msg);
     },
-    getRequestHeader:function(){
+    getRequestHeader:function(){    //生成网络请求的头部信息
         return {
             'content-type': 'application/x-www-form-urlencoded',
             'Authorization': this.getCache("token")

@@ -58,7 +58,7 @@ Page({
             data:{code:res.code} ,
             success: function (res) {
               //app.console(res.data.code)
-              if (res.data.code != 200){
+              if (res.data.code != 200) {   //未登录则将 regFlag 设为false
                 that.setData({
                   regFlag:false
                 });
@@ -80,7 +80,6 @@ Page({
              app.alert({'content':'登录失败，请再次点击'});
              return;
        }
-
        var data = e.detail.userInfo;
        wx.login({
          
@@ -97,7 +96,7 @@ Page({
              data: data,
              success: function (res) {
                if(res.data.code !=200){
-                 app.alert({ 'content': res.data.msg})
+                 app.alert({ 'content': res.data.msg});
                  return;
                }
                //设置本地缓存登录信息

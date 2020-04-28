@@ -138,7 +138,6 @@ CREATE TABLE `kaodian` (
 
 7、考务安排表exam_kaowu
 
-
 DROP TABLE IF EXISTS `exam_kaowu`;
 CREATE TABLE `exam_kaowu` (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,

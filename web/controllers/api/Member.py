@@ -2,14 +2,14 @@
 # 接受小程序用户登录操作
 
 from web.controllers.api import route_api
-from flask import request, jsonify
+from flask import request, jsonify, g
 from application import app, db
 import requests, json
 from common.models.member.Member import Member
 from common.models.member.OauthMemberBind import OauthMemberBind
 from common.libs.Helper import getCurrentDate
 from common.libs.member.MemberService import MemberService
-
+from common.models.food.WxShareHistory import WxShareHistory
 
 @route_api.route("/member/login", methods=["GET", "POST"])
 def login():
@@ -43,7 +43,13 @@ def login():
         model_member.salt = MemberService.geneSalt()
         model_member.updated_time = model_member.created_time = getCurrentDate()
         db.session.add(model_member)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            resp['code'] = -1
+            resp['msg'] = "提交数据库出错"
+            db.session.rollback()
 
         model_bind = OauthMemberBind()
         model_bind.member_id = model_member.id
@@ -61,7 +67,7 @@ def login():
     resp['data'] = {'token': token}
     return jsonify(resp)
 
-
+# 判断是否已注册
 @route_api.route("/member/check-reg", methods=["GET", "POST"])
 def checkReg():
     resp = {'code': 200, 'msg': '操作成功', 'data': {}}
@@ -92,3 +98,29 @@ def checkReg():
     token = "%s#%s"%( MemberService.geneAuthCode(member_info), member_info.id )
     resp['data'] = {'token': token}
     return jsonify(resp)
+
+
+# 用户页面分享 记录
+@route_api.route("/member/share", methods=["GET", "POST"])
+def share():
+    resp = {'code': 200, 'msg': '操作成功', 'data': {}}
+    req = request.values
+    url = req['url'] if 'url' in req else ''
+    member_info = g.member_info
+    model_share = WxShareHistory()   # 初始化实例对象
+    if member_info:
+        model_share.member_id = member_info.id
+    model_share.share_url = url
+    model_share.created_time = getCurrentDate()
+    db.session.add(model_share)
+    try:
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        resp['code'] = -1
+        resp['msg'] = "提交分享数据入数据库出错"
+        db.session.rollback()
+
+
+
+

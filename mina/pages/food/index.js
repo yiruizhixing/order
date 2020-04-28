@@ -15,7 +15,8 @@ Page({
         scrollTop: "0",
         loadingMoreHidden: true,
         searchInput: '',
-        p: 1
+        p: 1,
+        //processing:false
     },
     onLoad: function () {
         var that = this;
@@ -23,11 +24,14 @@ Page({
         wx.setNavigationBarTitle({
             title: app.globalData.shopName
         });
-
-
-
         this.getBannerAndCat();
     },
+
+    //onshow  页面显示时的事件触发函数 ,主要是为了进入下级页面后，再返回时重新刷新数据
+    onShow:function(){
+        this.getBannerAndCat();
+    },
+
     scroll: function (e) {
         var that = this, scrollTop = that.data.scrollTop;
         that.setData({
@@ -73,11 +77,11 @@ Page({
             header:app.getRequestHeader(),
             success:function ( res ) {
                 var resp = res.data;
-                if(resp.code != 200){
+                if(resp.code != 200){    //如果返回值不正常
                   app.alert({"content":resp.msg});
                   return;
                 }
-                that.setData({
+                that.setData({            //如果返回值正常
                   banners:resp.data.banner_list,
                   categories:resp.data.cat_list
                 });
@@ -88,11 +92,16 @@ Page({
 
     },
      //分类标签被点击后处理方法
-    catClick:function(){
+    catClick:function(e){
       this.setData({
-        activeCategoryId:e.currentTarget.id
+        activeCategoryId:e.currentTarget.id,
+        p:1,
+        goods:[],
+        loadingMoreHidden:true
+
       });
       this.getFoodList();
+      //app.alert({ "content": "点了" });
     },
     //触底函数
     onReachBottom:function(){
@@ -100,13 +109,13 @@ Page({
       //500ms 延时处理
       setTimeout(function(){
         that.getFoodList();
-      },500)
+      },500);
 
     },
     //获取菜品列表
     getFoodList:function(){
       var that = this;
-      //如果存在processing变量，则表法正在处理，不能再次发出请求
+      //如果存在processing变量，则表示正在处理，不能再次发出请求
       if (that.data.processing){
         return;
       }
@@ -129,18 +138,20 @@ Page({
 
         },
         success: function (res) {
+          //console.info(res);
           var resp = res.data;
-          if (resp.code != 200) {
+          if (resp.code != 200) {               //返回不成功
             app.alert({ "content": resp.msg });
             return;
           }
-          var goods = resp.data.list;          
+          var goods = resp.data.list;            
           that.setData({
-            goods:goods,
-            p:that.data.p + 1,   //页码加1
-            processing:false
-            
+            goods: that.data.goods.concat(goods),  
+            // that.data.goods为原来显示的内容，concat(goods)为加上新返回的内容。
+            p:that.data.p + 1,                    //页码加1
+            processing:false            
           });
+          //console.info(goods); 
           //if 再没有页码了
           if(resp.data.has_more == 0){
             that.setData({

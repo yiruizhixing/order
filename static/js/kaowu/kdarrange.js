@@ -30,31 +30,6 @@ var kaowu_kdarrange_ops ={
              minimumInputLength: 1     //最少输入的查询字符长度
          });
 
-        //  // ***初始化选中项***
-        //  // Fetch the preselected item, and add to the control  初始化选中项 查询已安排人员 并显示
-        // var studentSelect = $('#xunshi-2');
-        // $.ajax({
-        //     type: 'GET',
-        //     url: '/kaowu/kqarrange/slectedjson'
-        // }).then(function (data) {
-        //     // create the option and append to Select2
-        //     $.each(data, function (index, data) {
-        //         studentSelect.append(new Option(data.text,data.id,true, true));
-        //     });
-        //     studentSelect.trigger('change');
-        //
-        //     //var option = new Option(data[2].text, data[2].id, true, true);
-        //     //studentSelect.append(option).trigger('change');
-        //     //console.log(data);
-        //     // manually trigger the `select2:select` event
-        //     studentSelect.trigger({
-        //         type: 'select2:select',
-        //         params: {
-        //             data: data
-        //         }
-        //     });
-        // });
-
         //手工输入添加人员
         $('.txt').on('select2:select', function (e) {
             //alert("很好呀")

@@ -11,14 +11,18 @@ APP = {
 
 # 过滤url 不验证登录状态
 IGNORE_URLS = [
-    "^/user/login",
-    "^/api",
-    "^/exam/choose"
+    "^/user/login",    # 登录页面
+    "^/exam/choose"    # 考试选择页面
 ]
 
 IGNORE_CHECK_LOGIN_URLS = [
     "^/static",
     "^/favicon.ico"
+]
+
+# 过滤小程序API url 不验证登录状态
+API_IGNORE_URLS = [
+    "^/api",
 ]
 
 
