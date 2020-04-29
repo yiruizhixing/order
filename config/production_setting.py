@@ -1,6 +1,6 @@
 # 生产环境
 DEBUG = False
 SQLALCHEMY_ECHO = True
-SQLALCHEMY_DATABASE_URI = 'mysql://root:yirui123+@127.0.0.1/food_db'
+SQLALCHEMY_DATABASE_URI = 'mysql://food_db:yirui123+@127.0.0.1/food_db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_ENCODING = "utf-8"

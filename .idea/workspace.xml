@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af4089d6-bcff-4b53-ae59-5f9476f75ab9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/local_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/local_setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/production_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/production_setting.py" afterDir="false" />
-    </list>
+    <list default="true" id="af4089d6-bcff-4b53-ae59-5f9476f75ab9" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +61,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="production_setting.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="production_setting.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/production_setting.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="160">
@@ -74,11 +70,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base_setting.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base_setting.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/base_setting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="768">
-              <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
+            <state relative-caret-position="64">
+              <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -171,7 +176,6 @@
         <option value="$PROJECT_DIR$/mina/pages/food/index.js" />
         <option value="$PROJECT_DIR$/mina/app.js" />
         <option value="$PROJECT_DIR$/web/interceptors/AuthInterceptor.py" />
-        <option value="$PROJECT_DIR$/config/base_setting.py" />
         <option value="$PROJECT_DIR$/web/interceptors/ApiAuthInterceptor.py" />
         <option value="$PROJECT_DIR$/www.py" />
         <option value="$PROJECT_DIR$/docs/mysql.md" />
@@ -186,6 +190,7 @@
         <option value="$PROJECT_DIR$/templates/user/login.html" />
         <option value="$PROJECT_DIR$/config/local_setting.py" />
         <option value="$PROJECT_DIR$/config/production_setting.py" />
+        <option value="$PROJECT_DIR$/config/base_setting.py" />
       </list>
     </option>
   </component>
@@ -346,7 +351,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="2002" height="1168" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3291262" />
@@ -383,13 +387,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/exam/set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="9" column="37" lean-forward="true" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/examset/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -709,13 +706,6 @@
     <entry file="file://$PROJECT_DIR$/config/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/base_setting.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/local_setting.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -723,10 +713,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config/production_setting.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="5" column="29" lean-forward="true" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/base_setting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
