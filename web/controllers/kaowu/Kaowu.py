@@ -13,7 +13,7 @@ route_kaowu = Blueprint( 'kaowu_page', __name__ )
 
 @route_kaowu.route( "/index" )
 def index():
-    return ops_render( "kaowu/index.html" )
+    return ops_render( "kaowu/kqarrange.html" )
 
 
 # 考区人员安排
@@ -214,7 +214,6 @@ def kdOps():
         db.session.rollback()
     return jsonify(resp)
 
-
 # 可询已安排考点人员，返回
 # @route_kaowu.route( "/kqarrange/slectedjson" )
 # def selectedjson():
@@ -226,5 +225,12 @@ def kdOps():
 #     data1 = [{'id': 1, 'text': '张三222'}, {'id': 2, 'text': 'lisi'}, {'id': 3, 'text': '王五'}]    # 测试数据
 #     data2 = [{'id': 1, 'text': '张三'}]  # 测试数据
 #     return jsonify(data1)
+
+
+# 统计出表
+@route_kaowu.route("/stat")
+def stat():
+    return ops_render("kaowu/stat.html")
+
 
 

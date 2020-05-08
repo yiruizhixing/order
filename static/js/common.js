@@ -107,6 +107,9 @@ var common_ops = {
         if(  pathname.indexOf("/baoming") > -1  ){
             nav_name = "baoming";
         }
+        if(  pathname.indexOf("/peixun") > -1  ){
+            nav_name = "peixun";
+        }
         if(  pathname.indexOf("/stat") > -1  ){
             nav_name = "stat";
         }

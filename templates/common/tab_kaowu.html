@@ -2,11 +2,9 @@
     <div class="col-lg-12">
         <div class="tab_title">
             <ul class="nav nav-pills">
-                <li {% if current =="index"%} class="current" {% endif %}>
-                    <a href="{{ buildUrl('/kaowu/index') }}">巡考报名</a>
-                </li>
                 <li {% if current =="kqarrange"%} class="current" {% endif %}>
                     <a href="{{ buildUrl('/kaowu/kqarrange') }}">考区人员安排</a>
+                </li>
                     <li {% if current =="kdarrange"%} class="current" {% endif %}>
                     <a href="{{ buildUrl('/kaowu/kdarrange') }}">考点人员安排</a>
                 </li>

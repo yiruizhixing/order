@@ -12,6 +12,8 @@ from web.controllers.upload.upload import route_upload
 from web.controllers.exam.Exam import route_exam
 from web.controllers.kaowu.Kaowu import route_kaowu
 from web.controllers.examset.Examset import route_examset
+from web.controllers.baoming.Baoming import route_baoming
+from web.controllers.peixun.Peixun import route_peixun
 
 '''
 统一拦截器and 统一错误处理
@@ -36,3 +38,5 @@ app.register_blueprint(route_upload, url_prefix="/upload")
 app.register_blueprint(route_exam, url_prefix="/exam")
 app.register_blueprint(route_kaowu, url_prefix="/kaowu")
 app.register_blueprint(route_examset, url_prefix="/examset")
+app.register_blueprint(route_baoming, url_prefix="/baoming")
+app.register_blueprint(route_peixun, url_prefix="/peixun")
