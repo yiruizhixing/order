@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af4089d6-bcff-4b53-ae59-5f9476f75ab9" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/web/controllers/news/News.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/controllers/news/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/common/layout_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/layout_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/food/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/food/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/food/info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/food/info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/member/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/member/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="af4089d6-bcff-4b53-ae59-5f9476f75ab9" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -356,7 +345,7 @@
     <option name="totallyTimeSpent" value="4499000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="2002" height="1168" extended-state="6" />
+    <frame x="54" y="-8" width="2002" height="1168" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
