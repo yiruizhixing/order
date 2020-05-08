@@ -94,7 +94,7 @@ var common_ops = {
         }
 
         if(  pathname.indexOf("/member") > -1  ){
-            nav_name = "member";
+            nav_name = "account";
         }
 
         if(  pathname.indexOf("/finance") > -1  ){
@@ -104,7 +104,9 @@ var common_ops = {
         if(  pathname.indexOf("/qrcode") > -1  ){
             nav_name = "market";
         }
-
+        if(  pathname.indexOf("/baoming") > -1  ){
+            nav_name = "baoming";
+        }
         if(  pathname.indexOf("/stat") > -1  ){
             nav_name = "stat";
         }
