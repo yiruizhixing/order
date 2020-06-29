@@ -1,0 +1,90 @@
+<!--pages/home/index.wxml-->
+
+
+<view class="container">
+	<!--考务通知 news-->
+	<view class="main-card-item-bm">
+		<view class="card-item-hd-bm">
+			<image class="card-item-icon-bm" src="/images/home/kb.png"></image>
+			<text class="card-item-name-bm">考务通知</text>
+		</view>
+		<view class="card-item-bd-news">
+			<view class="news-item" wx:for="{{news}}"  wx:key="index" data-id="{{item.id}}" bindtap="toNewsDetailsTap">
+				<view class="news-title">· {{item.name}}</view>
+				<view class="news-time">{{item.created_time}}</view>
+			</view>
+
+		</view>
+	</view>
+	<!-- end -->
+
+
+	<!--巡考报名-->
+	<view class="main-card-item-bm">
+		<view class="card-item-hd-bm">
+			<image class="card-item-icon-bm" src="/images/home/kb.png"></image>
+			<text class="card-item-name-bm">巡考报名</text>
+		</view>
+		<view class="card-item-bd-bm">
+			<view class="kb-item-bm" wx:for="{{bm_list}}" wx:key="index" data-id="{{item.id}}">
+				<navigator class="ks-item-nav" url="/pages/bm/bm?id={{item.id}}">
+					<image class="ks-item-icon-left" src="/images/home/ks.png"></image>
+					<view>
+						<view class="ks-item-tit">{{item.title}}</view>
+						<text class="ks-item-sta">报名正在进行</text>
+					</view>
+					<image class="ks-item-icon-right" src="/images/home/enter.png"></image>
+				</navigator>
+			</view>
+		</view>
+	</view>
+	<!-- end -->
+
+	<!--考务管理-->
+	<view class="main-card-item-bm" hidden>
+
+		<!--考务内容-->
+		<view class="card-item-hd-bm">
+			<image class="card-item-icon-bm" src="/images/home/kb.png"></image>
+			<text class="card-item-name-bm">考务管理</text>
+		</view>
+		<!--考试列表-->
+		<view class="type-container">
+			<scroll-view class="type-navbar" scroll-x="true">
+				<view class="type-box" wx:for-items="{{categories}}" wx:key="id">
+					<view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="catClick">
+						{{item.name}}
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="kw-bd">
+			<view class="kw-ks-item">
+				<view class="kw-ks-item-hd">
+					<text class="ks-text">考试名称：2020年测试考试1111</text>
+					<text class="ks-text">考试日期：2020年8月1日</text>
+					<text class="ks-text">考务安排：点击查看</text>
+				</view>
+				<view class="kw-ks-item-bd">
+					<view class="kd-content">
+						<text class="ks-text">岗位类别：考点</text>
+						<text class="ks-text">岗位名称：巡视</text>
+						<text class="ks-text">岗位职责：点击查看</text>
+						<text class="ks-text">分配考点：xx考点</text>
+						<text class="ks-text">分配考场：15 16</text>
+					</view>
+
+				</view>
+
+
+			</view>
+
+
+		</view>
+	</view>
+	<!-- end -->
+
+	<navigator url="/pages/food/index">原首页</navigator>
+	<navigator url="/pages/my/order_list">原订单列表</navigator>
+
+</view>

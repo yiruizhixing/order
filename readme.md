@@ -27,3 +27,11 @@ flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables exam_kaodian 
 flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables wx_share_history --outfile "common/models/food/WxShareHistory.py"  --flask
 
 flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables member_cart --outfile "common/models/member/MemberCart.py"  --flask
+
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables news --outfile "common/models/news/News.py"  --flask
+
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables bm_exam --outfile "common/models/bm/BmExam.py"  --flask
+
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables member_people_bind --outfile "common/models/member/MemberPeopleBind.py"  --flask
+
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables bm_info --outfile "common/models/bm/BmInfo.py"  --flask

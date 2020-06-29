@@ -191,3 +191,80 @@ CREATE TABLE `exam_kaodian` (
   CONSTRAINT `exam_id3` FOREIGN KEY (`exam_id`) REFERENCES `exam_list` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `kaodian_id` FOREIGN KEY (`kaodian_id`) REFERENCES `kaodian` (`id`) ON UPDATE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='考点安排表';
+
+
+9、巡考报名考试表bm_exam
+
+DROP TABLE IF EXISTS `bm_exam`;
+
+CREATE TABLE `bm_exam` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1：开启 0：关闭',
+  `exam_id` INT(11) UNSIGNED NOT NULL  COMMENT '关联考试id',
+  `exam_name` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '关联考试名称',
+  `show_exam_name` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '显示报名名称',
+  `numbers` INT(11) NOT NULL DEFAULT '0' COMMENT '所需人员数量',
+  `x_rules` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '巡视报名条件',
+  `m_rules` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '门检报名条件',
+  `rule_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '条件有效 1：是  0：否',
+  `start_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '报名开始时间',
+  `end_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '报名结束时间',
+  `beizhu` VARCHAR(2000) NOT NULL DEFAULT ''  COMMENT '备注说明',
+  `beizhu2` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注2',
+  `beizhu3` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注3',
+  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='巡考报名考试表';
+
+
+
+
+10、会员成员绑定表member_people_bind
+
+DROP TABLE IF EXISTS `member_people_bind`;
+
+CREATE TABLE `member_people_bind` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `member_id` INT(11) UNSIGNED NOT NULL unique COMMENT '会员id',
+  `people_id` INT(11) UNSIGNED NOT NULL  unique COMMENT '成员id',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1：有效 0：无效',
+  `beizhu1` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注1',
+  `beizhu2` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注2',
+  `beizhu3` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注3',
+  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `member_id` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `people_id` FOREIGN KEY (`people_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='会员成员绑定表';
+
+
+11、巡考报名数据表bm_info
+
+DROP TABLE IF EXISTS `bm_info`;
+
+CREATE TABLE `bm_info` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `bm_exam_id` INT(11) UNSIGNED NOT NULL unique COMMENT '报名考试id',
+  `people_id` INT(11) UNSIGNED NOT NULL  unique COMMENT '成员id',
+  `name` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '成员姓名',
+  `xunkao_id` CHAR(100) NOT NULL DEFAULT '' COMMENT '编号',
+  `kaodian_id` INT(11) UNSIGNED NOT NULL  COMMENT '考点id',
+  `kaodian_name` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '考点名称',
+  `kemu` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '报名科目',
+  `xk_date` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '巡考日期',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '报名状态 1：有效 0：无效',
+  `sh_status` int(11) unsigned NOT NULL COMMENT '审核状态 1：通过 2：审核不通过 3：未审核 4：无 ',
+  `sh_admin` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '审核人员',
+  `sh_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '审核时间',
+  `from` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '报名渠道',
+  `beizhu1` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注1',
+  `beizhu2` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注2',
+  `beizhu3` VARCHAR(200) NOT NULL DEFAULT ''  COMMENT '备注3',
+  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后插入时间',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `bm_exam_id` FOREIGN KEY (`bm_exam_id`) REFERENCES `bm_exam` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `people_id1` FOREIGN KEY (`people_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='会员成员绑定表';

@@ -1,0 +1,44 @@
+<!--pages/study/info.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+<view class="container"> 
+  <!--商品轮播图--> 
+
+   <!--商品基本介绍-->
+   <view class="goods-info">
+        <view class="goods-title">{{info.name}}</view>
+        <!-- <view class="goods-price" style="padding-left:35rpx;">¥ {{info.price}}</view> -->
+        <view class="goods-price" style="padding-left:35rpx;color:#999;font-size:24rpx;">发布时间{{info.total_count}}</view>
+        <!-- <view class="goods-price" style="color:#999;font-size:24rpx;">共收到 {{info.comment_count}} 次好评</view> -->
+        <!-- <view class="goods-info-fx">
+          <image src='/images/qd.png' />
+          <button open-type="share">分享</button>
+          <text>分享有赏</text>
+        </view> -->
+   </view>
+    <view class="goods-des-info">
+        
+        <view class="goods-text">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+         </view>
+    </view>
+
+    <!--用户评价-->
+    <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{commentList}}">
+        <view class="label-title" style="border-bottom:1px solid #eee;">大家评价<text style="color:red">（{{commentCount}}）</text></view>
+        <view class="goods-text" style="margin-top:15rpx;border-bottom:1px solid #eee;" wx:for="{{commentList}}">
+          <view style="width:100rpx;float:left;">
+            <image style="width: 100rpx; height: 100rpx;" src="{{item.user.avatar_url}}"></image>
+            <view style="text-align:center;width:100rpx;">{{item.score}}</view>
+          </view>
+          <view style="width:550rpx;float:left;margin-left:35rpx;">
+            <view>{{item.content}}</view>
+            <view style="color: #B0B0B0;font-size:24rpx;">{{item.date}}</view>
+          </view>
+        </view>
+    </view>
+
+    <!--底部-->
+
+   <!--购买和收藏弹窗-->
+
+</view>

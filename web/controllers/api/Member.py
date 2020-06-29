@@ -10,7 +10,11 @@ from common.models.member.OauthMemberBind import OauthMemberBind
 from common.libs.Helper import getCurrentDate
 from common.libs.member.MemberService import MemberService
 from common.models.food.WxShareHistory import WxShareHistory
+from common.models.member.MemberPeopleBind import MemberPeopleBind
+from common.models.people.People import People
 
+
+# 授权登录接口
 @route_api.route("/member/login", methods=["GET", "POST"])
 def login():
     resp = {'code': 200, 'msg': '操作成功', 'data': {}}
@@ -99,27 +103,103 @@ def checkReg():
     resp['data'] = {'token': token}
     return jsonify(resp)
 
-
-# 用户页面分享 记录
-@route_api.route("/member/share", methods=["GET", "POST"])
-def share():
-    resp = {'code': 200, 'msg': '操作成功', 'data': {}}
+# my/index 接口 查询是否绑定，返回用户昵称、头像
+@route_api.route("/member/my", methods=["GET"])
+def myIndex():
+    resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
     req = request.values
-    url = req['url'] if 'url' in req else ''
-    member_info = g.member_info
-    model_share = WxShareHistory()   # 初始化实例对象
-    if member_info:
-        model_share.member_id = member_info.id
-    model_share.share_url = url
-    model_share.created_time = getCurrentDate()
-    db.session.add(model_share)
+    # 获取member信息
+    auth_cookie = request.headers.get("Authorization")
+    if auth_cookie is None:
+        return False
+    auth_info = auth_cookie.split("#")
+    if len(auth_info) != 2:
+        return False
+    member_info = Member.query.filter_by(id=auth_info[1]).first()
+    resp['data']['bind_flag'] = True    # 默认绑定
+
+    # 获取绑定信息
     try:
+        bind_info = MemberPeopleBind.query.filter_by(member_id=auth_info[1]).first()
+    except Exception:
+        return False
+    if bind_info is None:
+        resp['data']['bind_flag'] = False      # 未绑定
+
+    resp['data']['info'] = {
+        'name':member_info.nickname,
+        'avatar':member_info.avatar
+    }
+    return jsonify(resp)
+
+# 绑定操作接口
+@route_api.route("/member/bind", methods=["GET"])
+def memberBind():
+    resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
+    req = request.values
+    # 获取member信息
+    auth_cookie = request.headers.get("Authorization")
+    if auth_cookie is None:
+        return False
+    auth_info = auth_cookie.split("#")
+    if len(auth_info) != 2:
+        return False
+    member_id = auth_info[1]
+    # 获取绑定信息
+    try:
+        bind_info = MemberPeopleBind.query.filter_by(member_id=member_id).first()
+    except Exception:
+        return False
+    if bind_info:
+        resp['code'] = -1
+        resp['msg'] = "当前微信已绑定，不要重复绑定"
+        return jsonify(resp)
+    # 人员信息
+    people_name = req['name'] if 'name' in req else ''
+    people_info = People.query.filter_by(name=people_name).first()
+    if not people_info:
+        resp['code'] = -1
+        resp['msg'] = "当前姓名不存在，请联系系统管理员录入"
+        return jsonify(resp)
+
+    bind_info = MemberPeopleBind()   # 实例化新的绑定关系对象
+    bind_info.member_id = member_id
+    bind_info.people_id = people_info.id
+    bind_info.beizhu1 = people_name
+    bind_info.created_time = getCurrentDate()
+    bind_info.updated_time = getCurrentDate()
+    # 提交信息
+    try:
+        db.session.add(bind_info)
         db.session.commit()
     except Exception as e:
         print(e)
         resp['code'] = -1
-        resp['msg'] = "提交分享数据入数据库出错"
+        resp['msg'] = "提交数据库出错"
         db.session.rollback()
+    return jsonify(resp)
+
+
+# 用户页面分享 记录
+# @route_api.route("/member/share", methods=["GET", "POST"])
+# def share():
+#     resp = {'code': 200, 'msg': '操作成功', 'data': {}}
+#     req = request.values
+#     url = req['url'] if 'url' in req else ''
+#     member_info = g.member_info
+#     model_share = WxShareHistory()   # 初始化实例对象
+#     if member_info:
+#         model_share.member_id = member_info.id
+#     model_share.share_url = url
+#     model_share.created_time = getCurrentDate()
+#     db.session.add(model_share)
+#     try:
+#         db.session.commit()
+#     except Exception as e:
+#         print(e)
+#         resp['code'] = -1
+#         resp['msg'] = "提交分享数据入数据库出错"
+#         db.session.rollback()
 
 
 

@@ -1,62 +1,109 @@
 ;
-var exam_set_ops ={
+var baoming_ops ={
     init:function () {
         this.eventBind();
     },
     eventBind:function () {
-        /**  科目时间选择控件初始化  **/
-        $('.date').datetimepicker({
-            dayOfWeekStart: 1,
-            initTime: true,
-            allowTimes:['08:00','08:30','09:00','09:30','13:00','14:00','15:00']
+        /**  swithc控件初始化 报名开关 条件开关 **/
+        //$("[name='switch']").bootstrapSwitch();
+        $('#switch1').bootstrapSwitch();
+        $('#switch3').bootstrapSwitch();
+        $('#switch4').bootstrapSwitch();
+        $('#switch2').bootstrapSwitch({
+            onSwitchChange:function(event,state){
+                 if(state==true){
+
+                 }
+                 else {}
+            }
         });
-        $.datetimepicker.setLocale('zh');   //设置 datetimepicker 为汉语
+
+        /** 基本设置 编辑按钮 **/
+        $('#baseedt').click(function () {
+            $('#basesave').removeClass("disabled");
+            $("input").removeAttr('disabled');
+            //$('#switch1').bootstrapSwitch('setActive', false);
+            //$('#switch1').Attr('disabled','false');
+            $("textarea").removeAttr('disabled');
+            $(this).addClass("disabled");
+            $('.switch-show').removeAttr('hidden');
+            $('.switch-hidden').remove();
+        });
 
         /** 基本设置 保存 **/
         $('#basesave').click(function () {
-            //alert("点了");
-
             var btn_target = $(this);
             if( btn_target.hasClass("disabled")){
                 common_ops.alert("正在处理！请不要重复提交");
                 return;
             }
-            /** 考试名称**/
-            //var exam_name = $('#exam_name').text();
+            /** 关联考试名称**/
+            var exam_name = $('#examName').text();
             //common_ops.alert(exam_name);
+            /** 显示考试名称**/
+            var show_name = $("input[name='showName']").val();
             /** 考试id**/
             var examid = $('#examid').text();
+            /** 所需人数**/
+            var neednum = $("input[name='neednum']").val();
+            //console.log(neednum);
 
-            /** 考试科数**/
-            var keshu_target = $("input[name='inlineRadioOptions']:checked");
-            var keshu = keshu_target.val();
-            //console.log(keshu_target);
-            /** 考试天数**/
-            var days_target = $(".form-horizontal select[name=exam_days]");
-            var days = days_target.val();
+            /** 报名条件**/
+            var xstart = $('#xstart').val();
+            var xend = $('#xend').val();
+            var mstart = $('#mstart').val();
+            var mend = $('#mend').val();
 
-            /** 考试餐补次数**/
-            var canbu_target = $(".form-horizontal select[name=exam_canbu]");
-            var canbu = canbu_target.val();
-            //common_ops.alert(canbu);
+            /** 备注说明**/
+            var beizhu = $("textarea").val();
+            //console.log(beizhu);
+
+            var rule_status = $('.bootstrap-switch-id-switch1').is('.bootstrap-switch-on');   //如果该元素有这个类，则是开启状态
+            var status = $('.bootstrap-switch-id-switch2').is('.bootstrap-switch-on');
 
 
-            if( keshu == undefined){
-                common_ops.alert("请选择科目数");
+
+            if (xstart.length < 1) {
+                xstart = 0;
+            }
+            if (xend.length < 1) {
+                xend = 0;
+            }
+            if (mstart.length < 1) {
+                mstart = 0;
+            }
+            if (mend.length < 1) {
+                mend = 0;
+            }
+
+            if( eval(xstart) > eval(xend)){
+                common_ops.alert("x起始号需要小于等于结束号" + xstart + xend);
                 return false;
             }
+            if( eval(mstart) > eval(mend)){
+                common_ops.alert("m起始号需要小于等于结束号"+ mstart + mend);
+                return false;
+            }
+
 
             btn_target.addClass("disabled");
 
             var data = {
-                keshu:keshu,
-                canbu:canbu,
-                days:days,
-                id:examid
+                exam_name:exam_name,
+                show_name:show_name,
+                neednum:neednum,
+                examid:examid,
+                xstart:xstart,
+                xend:xend,
+                mstart:mstart,
+                mend:mend,
+                beizhu:beizhu,
+                rule_status:rule_status,
+                status:status
             };
 
             $.ajax({
-                url:common_ops.buildUrl("/examset/index"),
+                url:common_ops.buildUrl("/baoming/index"),
                 type:'POST',
                 data:data,
                 dataType:'json',
@@ -65,8 +112,8 @@ var exam_set_ops ={
                     var callback = null;
                     if( res.code == 200 ){
                         callback = function () {
-                            /** 修改完成后，统一跳转到 /examset/index **/
-                            window.location.href = common_ops.buildUrl("/examset/index");
+                            /** 修改完成后，统一跳转到 /baoming/index **/
+                            window.location.href = common_ops.buildUrl("/baoming/index");
                         }
                     }
                     common_ops.alert(res.msg,callback );
@@ -77,13 +124,19 @@ var exam_set_ops ={
 
         });
 
-        /** 基本设置 编辑按钮 **/
-        $('#baseedt').click(function () {
-            $('#basesave').removeClass("disabled");
-            $("select").removeAttr('disabled');
-            $('input[name="inlineRadioOptions"]').removeAttr('disabled');
-            $(this).addClass("disabled");
+
+
+
+
+
+
+        /**  科目时间选择控件初始化  **/
+        $('.date').datetimepicker({
+            dayOfWeekStart: 1,
+            initTime: true,
+            allowTimes:['08:00','08:30','09:00','09:30','13:00','14:00','15:00']
         });
+        $.datetimepicker.setLocale('zh');   //设置 datetimepicker 为汉语
 
         /** 科目设置 保存 **/
         $('#kemuSave').click(function () {
@@ -193,6 +246,6 @@ var exam_set_ops ={
 };
 
 $(document).ready( function () {
-    exam_set_ops.init();
+    baoming_ops.init();
 
 });

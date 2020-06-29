@@ -1,0 +1,70 @@
+/* pages/bm/bm.wxss */
+.container{
+  padding-bottom: 0;
+  background-color: #f0eff5;
+  background-repeat: no-repeat;
+  background-size: 100% auto; 
+  background-position: bottom center;
+  /*background-image: url('/images/index/tri.png');*/
+  /*微信暂不支持静态bgimg文件，改用服务器url*/
+  /*background-image: url('https://we.cqu.pt/app/images/index/tri.png');*/
+}
+.ks-title{
+  height: 60rpx;
+  width: 100%;
+  background-color: white;  
+  display: flex;
+  justify-content: center;  /*水平居中*/
+  align-items: center;    /*垂直居中*/
+
+}
+.bm-form{  
+  width: 100%;
+  background-color: white;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+.btn{
+  margin-top: 100rpx;
+  width: 80%;
+}
+.form-bd{
+  margin-left: 70rpx;
+  margin-right: 70rpx; 
+  display: flex;
+  flex-direction: column;  
+}
+.bm-sta{
+  border-bottom: 1rpx solid #e5e5e5;
+  height: 70rpx;
+  display: flex;
+  align-items: center;    /*垂直居中*/
+  font-size:24rpx;
+}
+.ks-info{  
+  width: 100%;
+  background-color: white;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+.ks-info-bd{
+  margin-left: 20rpx;
+  margin-right: 20rpx; 
+  display: flex;
+  flex-direction: column;
+}
+.info-item{
+  border-bottom: 1rpx solid #e5e5e5;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: left;    
+  font-size:15px
+}
+.item-text{
+  margin-top: 5rpx;
+  margin-bottom: 5rpx;
+
+}

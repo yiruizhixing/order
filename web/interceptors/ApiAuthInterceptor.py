@@ -37,7 +37,6 @@ def before_request():
 '''
 def check_member_login():
     auth_cookie = request.headers.get("Authorization")
-
     # app.logger.info( auth_cookie)
     if auth_cookie is None:
         return False

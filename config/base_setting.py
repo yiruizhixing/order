@@ -22,7 +22,7 @@ IGNORE_CHECK_LOGIN_URLS = [
 
 # 过滤小程序API url 不验证登录状态
 API_IGNORE_URLS = [
-    "^/api",
+
 ]
 
 

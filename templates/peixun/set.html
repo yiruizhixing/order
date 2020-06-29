@@ -5,10 +5,10 @@
         <div class="tab_title">
             <ul class="nav nav-pills">
                 <li class="current">
-                    <a href="{{ buildUrl('/food/index') }}">美食列表</a>
+                    <a href="{{ buildUrl('/peixun/index') }}">通知列表</a>
                 </li>
                 <li>
-                    <a href="{{ buildUrl('/food/cat') }}">分类列表</a>
+                    <a href="{{ buildUrl('/peixun/cat') }}">分类列表</a>
                 </li>
             </ul>
         </div>
@@ -32,18 +32,13 @@
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group">
-                <label class="col-lg-2 control-label">名称:</label>
+                <label class="col-lg-2 control-label">标题:</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="请输入名称" name="name" value="{{info.name}}">
+                    <input type="text" class="form-control" placeholder="请输入标题" name="name" value="{{info.name}}">
                 </div>
             </div>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-                <label class="col-lg-2 control-label">价格:</label>
-                <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="请输入售价" name="price" value="{{info.price}}">
-                </div>
-            </div>
+
+
             <div class="hr-line-dashed"></div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">封面图:</label>
@@ -70,13 +65,7 @@
                     <textarea  id="editor"  name="summary" style="height: 300px;">{{ info.summary }}</textarea>
                 </div>
             </div>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-                <label class="col-lg-2 control-label">库存:</label>
-                <div class="col-lg-2">
-                    <input type="text" name="stock" class="form-control" value="{{ info.stock }}">
-                </div>
-            </div>
+
             <div class="hr-line-dashed"></div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">标签:</label>
@@ -111,5 +100,5 @@
 
 <script src="{{ buildStaticUrl('/plugins/tagsinput/jquery.tagsinput.min.js') }}"></script>
 
-<script src="{{ buildStaticUrl('/js/food/set.js') }}"></script>
+<script src="{{ buildStaticUrl('/js/peixun/set.js') }}"></script>
 {% endblock %}

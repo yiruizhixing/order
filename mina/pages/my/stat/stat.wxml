@@ -1,0 +1,17 @@
+<!--pages/my/stat/stat.wxml-->
+<view class="container">
+    <view class="comment-list">
+        <view class="a-order" wx:for="{{list}}" wx:key="{{index}}" wx:for-item="item">
+            <view class="order-date">
+                <view class="date-box">考试时间：{{item.date}}</view>
+            </view>
+            <view class="goods-info">
+                <view class="goods-des">
+                  <view>考试名称：{{item.order_number}} </view>
+                   <view>工作岗位：{{item.content}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+

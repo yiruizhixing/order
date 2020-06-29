@@ -99,8 +99,8 @@ page{
   z-index: 2;
   left: 50%;
   bottom: 200rpx;
-  width: 160rpx;
-  height: 160rpx;
+  width: 156rpx;
+  height: 134rpx;
   margin-left: -80rpx;
   border-radius: 160rpx;
   animation: sway 10s ease-in-out infinite;

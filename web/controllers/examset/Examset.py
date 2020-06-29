@@ -37,7 +37,7 @@ def index():
     # post
     resp = {'code': 200, 'msg': '操作成功', 'data': ''}
     req = request.values  # 参数多时用values ,参数少时用args
-    id = req['id'] if 'id' in req else 0  # 获取当前用户id
+    id = req['id'] if 'id' in req else 0     # 获取当前考试id
     keshu = req['keshu'] if 'keshu' in req else ''
     canbu = req['canbu'] if 'canbu' in req else ''
     days = req['days'] if 'days' in req else ''

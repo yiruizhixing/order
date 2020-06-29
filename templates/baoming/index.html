@@ -5,61 +5,152 @@
         <div class="tab_title">
             <ul class="nav nav-pills">
                 <li  class="current" >
-                    <a href="{{ buildUrl('/baoming/index') }}">巡考报名</a>
+                    <a href="{{ buildUrl('/baoming/index') }}">报名设置</a>
+                </li>
+                 <li  >
+                    <a href="{{ buildUrl('/baoming/index') }}">报名管理</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 <div class="row m-t">
-    <div class="col-lg-12" id="container" style="height: 400px;" data-highcharts-chart="0">
-            暂无内容。。。。。图标使用Highchart
-    </div>
-    <div class="col-lg-12 m-t">
-        <form class="form-inline" id="search_form_wrap">
-            <div class="row p-w-m">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" placeholder="请选择开始时间" name="date_from" class="form-control"
-                               value="2018-05-08">
-                    </div>
-                </div>
-                <div class="form-group m-r m-l">
-                    <label>至</label>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" placeholder="请选择结束时间" name="date_to" class="form-control" value="2018-06-07">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <a class="btn btn-w-m btn-outline btn-primary search">搜索</a>
+    <div class="col-lg-12" id="container" >
+        <h3>基本设置：</h3>
+        <div class="hr-line-dashed col-sm-12" style="margin-top: 3px"></div>
+        <form class="form-horizontal"  >
+
+            <div class="form-group " >
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">关联考试：</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static" id="examName">{{session.exam_name}}</p>
                 </div>
             </div>
-            <hr>
+            <div class="form-group">
+                <label  class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">报名名称：</label>
+                <div class="col-lg-10">
+                    <input class="form-control" name="showName" id="showName" type="text"  disabled
+                           {% if info %} value="{{info.show_exam_name}}"
+                           {% else %} value="{{session.exam_name}}"
+                           {% endif %}
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">所需人数：</label>
+                <div class="col-lg-10">
+                  <input class="form-control" type="number" min="0" name="neednum"
+                           onkeyup="value=value.replace(/[^\d\.\-]/g,'');" disabled
+                           {% if info %} value="{{info.numbers}}"
+                           {% else %} value="0"
+                           {% endif %}
+                  />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">报名条件：</label>
+                <div class="col-lg-10">
+                    <div class="col-lg-2" style="padding-left: 0;">
+                     <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" style="width: 40px" >X</span>
+                        <input type="number" class="form-control" id="xstart" min="0" onkeyup="value=value.replace(/[^\d\.\-]/g,'');"
+                               placeholder="起始编号" aria-describedby="basic-addon1" disabled
+                               {% if info %} value="{{xstart}}"
+                               {% else %} value="0"
+                               {% endif %}
+                        />
+                     </div>
+                    </div>
+                    <div class="col-lg-1" style="width: 20px;padding-top: 5px;padding-left: 0;margin-right: 5px"><span>—</span></div>
+                    <div class="col-lg-2" style="padding-left: 0;">
+                     <div class="input-group"  >
+                        <span class="input-group-addon" id="basic-addon2" style="width: 40px" >X</span>
+                        <input type="number" class="form-control" id="xend" min="0" onkeyup="value=value.replace(/[^\d\.\-]/g,'');"
+                               placeholder="结束编号" aria-describedby="basic-addon2" disabled
+                               {% if info %} value="{{xend}}"
+                               {% else %} value="0"
+                               {% endif %}
+                        />
+                     </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-lg-offset-2" style="margin-top: 10px">
+                    <div class="col-lg-2" style="padding-left: 0;">
+                     <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3" style="width: 40px">M</span>
+                        <input type="number" class="form-control" id="mstart"  min="0" onkeyup="value=value.replace(/[^\d\.\-]/g,'');"
+                               placeholder="起始编号" aria-describedby="basic-addon3" disabled
+                               {% if info %} value="{{mstart}}"
+                               {% else %} value="0"
+                               {% endif %}
+                        />
+                     </div>
+                    </div>
+                    <div class="col-lg-1" style="width: 20px;padding-top: 5px;padding-left: 0;margin-right: 5px"><span>—</span></div>
+                    <div class="col-lg-2" style="padding-left: 0;">
+                     <div class="input-group"  >
+                        <span class="input-group-addon" id="basic-addon4" style="width: 40px">M</span>
+                        <input type="number" class="form-control" id="mend" min="0" onkeyup="value=value.replace(/[^\d\.\-]/g,'');"
+                               placeholder="结束编号" aria-describedby="basic-addon4" disabled
+                               {% if info %} value="{{mend}}"
+                               {% else %} value="0"
+                               {% endif %}
+                        />
+                     </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">仅符合条件可报名：</label>
+                <div class="col-lg-10 switch-hidden " style="margin-top: 10px" >
+                     <input type="checkbox"  name="switch" id="switch3" data-on-color="success" data-off-color="warning"  data-on-text="是" data-off-text="否" {% if info.rule_status  == 1 %}checked {% endif %}  disabled/>
+                </div>
+                <div class="col-lg-10 switch-show" style="margin-top: 10px"  hidden>
+                     <input type="checkbox"  name="switch" id="switch1" data-on-color="success" data-off-color="warning"  data-on-text="是" data-off-text="否" {% if info.rule_status  == 1 %}checked {% endif %}  />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">备注说明：</label>
+                <div class="col-lg-10">
+                    <textarea class="form-control" rows="3" style="text-align: left"  disabled>{% if info %}{{info.beizhu}}{% endif %}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-1 col-sm-offset-1 control-label" style="text-align: left">报名开关：</label>
+                <div class="col-lg-10 switch-hidden" style="margin-top: 5px">
+                     <input type="checkbox" name="switch" id="switch4" data-on-color="success" data-off-color="warning" data-on-text="开" data-off-text="关" {% if info.status  == 1 %}checked {% endif %} disabled/>
+                </div>
+
+                <div class="col-lg-10 switch-show" style="margin-top: 5px" hidden>
+                     <input type="checkbox" name="switch" id="switch2" data-on-color="success" data-off-color="warning" data-on-text="开" data-off-text="关" {% if info.status  == 1 %}checked {% endif %} />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <a class="btn btn-w-m btn-outline btn-primary save " id='baseedt'>编辑</a>
+                    <a class="btn btn-w-m btn-outline btn-primary save disabled" id='basesave' style="margin-left: 10px" >保存</a>
+                </div>
+            </div>
+
         </form>
-        <table class="table table-bordered m-t">
-            <thead>
-            <tr>
-                <th>日期</th>
-                <th>123</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>2018-06-07</td>
-                <td>1007.00</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="row">
-            <div class="col-lg-12">
-                <span class="pagination_count" style="line-height: 40px;">共1条记录 | 每页50条</span>
-                <ul class="pagination pagination-lg pull-right" style="margin: 0 0 ;">
-                    <li class="active"><a href="javascript:void(0);">1</a></li>
-                </ul>
-            </div>
-        </div>
+
+
+        <div class="hr-line-dashed"></div>
+
     </div>
+
 </div>
+{% endblock %}
+{% block css %}
+<link href="{{ buildStaticUrl('/plugins/datetimepicker/jquery.datetimepicker.min.css') }}" rel="stylesheet">
+<link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-switch/4.0.0-alpha.1/css/bootstrap-switch.min.css" rel="stylesheet">
+{% endblock %}
+{% block js %}
+<script src="{{ buildStaticUrl('/plugins/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
+<script src="{{ buildStaticUrl('/js/baoming/index.js') }}"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-switch/4.0.0-alpha.1/js/bootstrap-switch.min.js"></script>
 {% endblock %}

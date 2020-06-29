@@ -46,13 +46,13 @@ def index():
     cat_mapping = getDictField(FoodCat,"id","id",[])
     resp_data['list'] = list
     resp_data['pages'] = pages
-    resp_data['search_con'] = req  # 搜索框内容
+    resp_data['search_con'] = req     # 搜索框内容
     resp_data['status_mapping'] = app.config['STATUS_MAPPING']
     resp_data['cat_mapping'] = cat_mapping
     resp_data['current'] = 'index'
     return ops_render( "food/index.html", resp_data)
 
-# 菜品详情展示页面
+# 详情展示页面
 @route_food.route( "/info" )
 def info():
     resp_data = {}
@@ -83,7 +83,7 @@ def set():
         if info and info.status !=1:
             return redirect(UrlManager.buildUrl("/food/index"))
 
-        cat_list = FoodCat.query.all()
+        cat_list = FoodCat.query.filter_by(status=1).all()
         resp_data['info'] = info
         resp_data['cat_list'] = cat_list
         resp_data['current'] = 'index'

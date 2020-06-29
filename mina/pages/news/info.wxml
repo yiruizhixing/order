@@ -1,0 +1,20 @@
+<!--pages/news/info.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+<view class="container"> 
+   <!--商品基本介绍-->
+   <view class="goods-info">
+        <view class="goods-title">{{info.name}}</view>
+        <view class="goods-price" style="padding-left:35rpx;color:#999;font-size:24rpx;">发布时间: {{info.created_time}}</view>
+   </view>
+    <view class="goods-des-info">        
+        <view class="goods-text">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+         </view>
+    </view>
+
+
+    <!--底部-->
+
+   <!--购买和收藏弹窗-->
+
+</view>
