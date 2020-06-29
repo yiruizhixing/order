@@ -111,6 +111,9 @@ var common_ops = {
         if(  pathname.indexOf("/stat") > -1  ){
             nav_name = "stat";
         }
+        if(  pathname.indexOf("/news") > -1  ){
+            nav_name = "news";
+        }
 
         if( nav_name == null ){
             return;

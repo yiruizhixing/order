@@ -2,43 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af4089d6-bcff-4b53-ae59-5f9476f75ab9" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/static/js/baoming/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/base_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/base_setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/mysql.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/mysql.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/mina/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/mina/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/images/more/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/mina/images/more/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/images/more/title8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/pages/food/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/mina/pages/food/index.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/mina/pages/index/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/pages/index/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/mina/pages/index/index.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/mina/pages/index/index.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/pages/index/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/mina/pages/index/index.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/pages/my/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/mina/pages/my/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/pages/my/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/mina/pages/my/index.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/pages/my/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/mina/pages/my/index.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mina/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/mina/project.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/baoming/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/baoming/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/common/layout_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/layout_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/peixun/cat.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/peixun/cat.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/peixun/cat_set.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/peixun/cat_set.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/peixun/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/peixun/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/peixun/info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/peixun/info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/peixun/set.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/peixun/set.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/api/Food.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/api/Food.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/api/Member.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/api/Member.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/api/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/api/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/api/index.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/baoming/Baoming.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/baoming/Baoming.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/examset/Examset.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/examset/Examset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/food/Food.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/food/Food.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/news/News.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/news/News.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/controllers/peixun/Peixun.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/controllers/peixun/Peixun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/interceptors/ApiAuthInterceptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/interceptors/ApiAuthInterceptor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www.py" beforeDir="false" afterPath="$PROJECT_DIR$/www.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/finance/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/finance/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -66,47 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/controllers/api/index.py">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/finance/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1056">
-              <caret line="195" column="43" lean-forward="true" selection-start-line="195" selection-start-column="12" selection-end-line="195" selection-end-column="43" />
-              <folding>
-                <element signature="e#24#65#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Baoming.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/controllers/baoming/Baoming.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="683">
-              <caret line="102" column="29" lean-forward="true" selection-start-line="94" selection-start-column="4" selection-end-line="102" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Examset.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/controllers/examset/Examset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="15" column="55" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="55" />
-              <folding>
-                <element signature="e#24#95#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Member.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/controllers/api/Member.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="152" column="17" lean-forward="true" selection-start-line="152" selection-start-column="17" selection-end-line="152" selection-end-column="17" />
-              <folding>
-                <element signature="e#39#80#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="320">
+              <caret line="10" column="69" selection-start-line="10" selection-start-column="69" selection-end-line="10" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -158,8 +89,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mina/pages/food/info.js" />
-        <option value="$PROJECT_DIR$/web/controllers/api/Cart.py" />
         <option value="$PROJECT_DIR$/common/models/member/MemberCart.py" />
         <option value="$PROJECT_DIR$/common/libs/member/CartService.py" />
         <option value="$PROJECT_DIR$/templates/user/login.html" />
@@ -173,7 +102,6 @@
         <option value="$PROJECT_DIR$/templates/food/info.html" />
         <option value="$PROJECT_DIR$/templates/common/tab_kaowu.html" />
         <option value="$PROJECT_DIR$/web/controllers/kaowu/Kaowu.py" />
-        <option value="$PROJECT_DIR$/static/js/common.js" />
         <option value="$PROJECT_DIR$/web/controllers/food/Food.py" />
         <option value="$PROJECT_DIR$/templates/peixun/index.html" />
         <option value="$PROJECT_DIR$/templates/peixun/cat.html" />
@@ -187,7 +115,6 @@
         <option value="$PROJECT_DIR$/web/controllers/peixun/Peixun.py" />
         <option value="$PROJECT_DIR$/common/models/news/News.py" />
         <option value="$PROJECT_DIR$/www.py" />
-        <option value="$PROJECT_DIR$/templates/common/layout_main.html" />
         <option value="$PROJECT_DIR$/templates/news/index.html" />
         <option value="$PROJECT_DIR$/templates/news/set.html" />
         <option value="$PROJECT_DIR$/static/js/news/set.js" />
@@ -209,6 +136,10 @@
         <option value="$PROJECT_DIR$/common/models/bm/BmInfo.py" />
         <option value="$PROJECT_DIR$/web/controllers/api/index.py" />
         <option value="$PROJECT_DIR$/web/controllers/api/Member.py" />
+        <option value="$PROJECT_DIR$/templates/common/layout_main.html" />
+        <option value="$PROJECT_DIR$/static/js/common.js" />
+        <option value="$PROJECT_DIR$/templates/index/index.html" />
+        <option value="$PROJECT_DIR$/templates/finance/index.html" />
       </list>
     </option>
   </component>
@@ -221,7 +152,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="79" />
     <option name="y" value="1" />
     <option name="width" value="1538" />
@@ -233,38 +164,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
               <item name="order" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="order" type="b2602c69:ProjectViewProjectNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="order" type="b2602c69:ProjectViewProjectNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="order" type="b2602c69:ProjectViewProjectNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="bm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="order" type="b2602c69:ProjectViewProjectNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="member" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
@@ -284,52 +189,49 @@
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
               <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
               <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
               <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
               <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="baoming" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
               <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="examset" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
               <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="member" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="finance" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="order" type="b2602c69:ProjectViewProjectNode" />
               <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="interceptors" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -414,6 +316,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="2002" height="1168" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3291262" />
@@ -450,27 +353,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/peixun/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="23" column="59" lean-forward="true" selection-start-line="23" selection-start-column="59" selection-end-line="23" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/peixun/cat_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="50" column="86" lean-forward="true" selection-start-line="50" selection-start-column="86" selection-end-line="50" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/food/info.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="14" lean-forward="true" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/peixun/info.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1120">
@@ -510,13 +392,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/common/layout_main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="34" column="36" lean-forward="true" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -710,9 +585,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="704">
           <caret line="22" column="10" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="10" />
-          <folding>
-            <element signature="e#16#84#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -741,9 +613,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="19" column="54" lean-forward="true" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
-          <folding>
-            <element signature="e#16#84#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -758,15 +627,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-245">
           <caret line="82" column="24" lean-forward="true" selection-start-line="82" selection-start-column="24" selection-end-line="82" selection-end-column="24" />
-          <folding>
-            <element signature="e#2793#3851#0" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/controllers/examset/Examset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
+        <state relative-caret-position="224">
           <caret line="15" column="55" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="55" />
           <folding>
             <element signature="e#24#95#0" expanded="true" />
@@ -776,15 +642,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/controllers/baoming/Baoming.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="102" column="29" lean-forward="true" selection-start-line="94" selection-start-column="4" selection-end-line="102" selection-end-column="29" />
+        <state relative-caret-position="3168">
+          <caret line="102" column="29" selection-start-line="94" selection-start-column="4" selection-end-line="102" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/controllers/api/index.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1056">
-          <caret line="195" column="43" lean-forward="true" selection-start-line="195" selection-start-column="12" selection-end-line="195" selection-end-column="43" />
+        <state relative-caret-position="5920">
+          <caret line="195" column="43" selection-start-line="195" selection-start-column="12" selection-end-line="195" selection-end-column="43" />
           <folding>
             <element signature="e#24#65#0" expanded="true" />
           </folding>
@@ -793,11 +659,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/controllers/api/Member.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="152" column="17" lean-forward="true" selection-start-line="152" selection-start-column="17" selection-end-line="152" selection-end-column="17" />
+        <state relative-caret-position="416">
+          <caret line="151" column="20" lean-forward="true" selection-start-line="151" selection-start-column="20" selection-end-line="151" selection-end-column="20" />
           <folding>
             <element signature="e#39#80#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/common/layout_main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1053">
+          <caret line="29" column="33" lean-forward="true" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="112" column="9" lean-forward="true" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/finance/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="10" column="69" selection-start-line="10" selection-start-column="69" selection-end-line="10" selection-end-column="69" />
         </state>
       </provider>
     </entry>
