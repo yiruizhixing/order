@@ -67,11 +67,15 @@ Page({
   //报名提交
   toBaoMing: function (e) {
     var that = this;
+    var bianhao_temp = that.data.info.bianhao;
+    if(bianhao_temp==''){                             //如果没有编号，则赋值一个临时编号
+      bianhao_temp="000"
+    }
     var data = {
       "id": that.data.id,                             //报名项目id
       "name": that.data.info.name,                    //人员姓名
       "people_id": that.data.info.people_id,          //人员id
-      "bianhao": that.data.info.bianhao,              //人员编号
+      "bianhao": bianhao_temp,                        //人员编号
     };
     wx.request({ //向服务器发送 存入数据库
       url: app.buildUrl("/bm/post"),

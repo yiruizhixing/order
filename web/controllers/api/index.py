@@ -84,22 +84,25 @@ def bmInfo():
         resp['code'] = -1
         resp['msg'] = "相关报名已关闭"
         return jsonify(resp)
+    if bm_exam.rule_status == 1:                   # 如果开启了报名条件，则返回条件信息
+        x_rules = bm_exam.x_rules.split(',')
+        new_x_rules = []
+        for i in x_rules:
+            new_x_rules.append(int(i))
+        m_rules = bm_exam.m_rules.split(',')
+        new_m_rules = []
+        for i in m_rules:
+            new_m_rules.append(int(i))
+        xstart = min(new_x_rules)
+        xend = max(new_x_rules)
+        mstart = min(new_m_rules)
+        mend = max(new_m_rules)
 
-    x_rules = bm_exam.x_rules.split(',')
-    new_x_rules = []
-    for i in x_rules:
-        new_x_rules.append(int(i))
-    m_rules = bm_exam.m_rules.split(',')
-    new_m_rules = []
-    for i in m_rules:
-        new_m_rules.append(int(i))
-    xstart = min(new_x_rules)
-    xend = max(new_x_rules)
-    mstart = min(new_m_rules)
-    mend = max(new_m_rules)
-
-    xrules = "X" + str(xstart) + "--X" + str(xend)
-    mrules = "M" + str(mstart) + "--M" + str(mend)
+        xrules = "X" + str(xstart) + "--X" + str(xend)
+        mrules = "M" + str(mstart) + "--M" + str(mend)
+    else:
+        xrules = "不限制"
+        mrules = ""
 
     # 获取member信息
     auth_cookie = request.headers.get("Authorization")
@@ -144,16 +147,16 @@ def bmInfo():
 
 
 # 巡考报名信息提交接口
-@route_api.route("/bm/post", methods=["POST"] )
+@route_api.route("/bm/post", methods=["POST"])
 def bmPost():
     resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
     req = request.values
-    id = int(req['id']) if 'id' in req else 0   # 报名项目id
-    name = req['name'] if 'name' in req else '' # 人员姓名
-    people_id = req['people_id'] if 'people_id' in req else 0  # 人员id
-    bianhao = req['bianhao'] if 'bianhao' in req else ''       # 巡考编号
+    id = int(req['id']) if 'id' in req else 0                   # 报名项目id
+    name = req['name'] if 'name' in req else ''                 # 人员姓名
+    people_id = req['people_id'] if 'people_id' in req else 0   # 人员id
+    bianhao = req['bianhao'] if 'bianhao' in req else '000'        # 巡考编号
 
-    bm_exam = BmExam.query.filter_by(id=id).first()           # 查询报名项目信息
+    bm_exam = BmExam.query.filter_by(id=id).first()             # 查询报名项目信息
     if not bm_exam or not bm_exam.status:
         resp['code'] = -1
         resp['msg'] = "相关报名已关闭"
@@ -173,7 +176,7 @@ def bmPost():
         for i in m_rules:
             new_m_rules.append(int(i))
 
-        bianhao_number =int(bianhao[1:])   # 取编号X058的数字部分转为int 58
+        bianhao_number =int(bianhao[1:])   # 取编号X058的数字部分转为int 例：X058变58
 
         if bianhao_number not in new_x_rules and bianhao_number not in new_m_rules:  # 报名条件验证
             resp['code'] = -1

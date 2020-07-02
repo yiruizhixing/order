@@ -1,6 +1,6 @@
 <!--pages/my/history/history.wxml-->
 <view class="container">
-    <view class="comment-list">
+    <view class="comment-list" hidden="true">
         <view class="a-order" wx:for="{{list}}" wx:key="{{index}}" wx:for-item="item">
             <view class="order-date">
                 <view class="date-box">考试时间：{{item.date}}</view>
@@ -13,4 +13,5 @@
             </view>
         </view>
     </view>
+    <view class="comment-list">暂无内容</view>
 </view>

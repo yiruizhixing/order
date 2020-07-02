@@ -179,28 +179,72 @@ def memberBind():
         db.session.rollback()
     return jsonify(resp)
 
+# 我的信息查询修改接口
+@route_api.route("/member/infoedt", methods=["GET","POST"])
+def infoEdt():
+    resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
+    req = request.values
 
-# 用户页面分享 记录
-# @route_api.route("/member/share", methods=["GET", "POST"])
-# def share():
-#     resp = {'code': 200, 'msg': '操作成功', 'data': {}}
-#     req = request.values
-#     url = req['url'] if 'url' in req else ''
-#     member_info = g.member_info
-#     model_share = WxShareHistory()   # 初始化实例对象
-#     if member_info:
-#         model_share.member_id = member_info.id
-#     model_share.share_url = url
-#     model_share.created_time = getCurrentDate()
-#     db.session.add(model_share)
-#     try:
-#         db.session.commit()
-#     except Exception as e:
-#         print(e)
-#         resp['code'] = -1
-#         resp['msg'] = "提交分享数据入数据库出错"
-#         db.session.rollback()
+    if request.method == "GET":
+        # 获取member信息
+        auth_cookie = request.headers.get("Authorization")
+        if auth_cookie is None:
+            return False
+        auth_info = auth_cookie.split("#")
+        if len(auth_info) != 2:
+            return False
 
+        # 获取绑定信息
+        try:
+            bind_info = MemberPeopleBind.query.filter_by(member_id=auth_info[1]).first()
+        except Exception:
+            return False
+        if bind_info is None:  # 如果未绑定
+            resp['code'] = -1
+            resp['msg'] = "未绑定信息，请返回个人中心点击头像绑定"
+            return jsonify(resp)
 
+        resp['data']['info'] = {
+            'name': bind_info.people.name,
+            'bianhao': bind_info.people.xunkao_id,
+            'danwei': bind_info.people.danwei,
+            "chepai": bind_info.people.chepai,
+            "sfzh": bind_info.people.sfzh,
+            "mobile": bind_info.people.mobile,
+            "bankcard": bind_info.people.bankcard,
+            "bankaddr": bind_info.people.bankaddr,
+            "people_id": bind_info.people_id  # 人员id
+        }
+        return jsonify(resp)
 
+    # post
+    people_id = req['people_id'] if 'people_id' in req else 0  # 人员id
+    chepai = req['chepai'] if 'chepai' in req else ''
+    sfzh = req['sfzh'] if 'sfzh' in req else ''
+    mobile = req['mobile'] if 'mobile' in req else ''
+    bankcard = req['bankcard'] if 'bankcard' in req else ''
+    bankaddr = req['bankaddr'] if 'bankaddr' in req else ''
+    people_info = People.query.filter_by(id=people_id).first()
+    if not people_info:
+        resp['code'] = -1
+        resp['msg'] = "未绑定信息，请返回个人中心点击头像绑定"
+        return jsonify(resp)
+
+    people_info.chepai =chepai
+    people_info.sfzh = sfzh
+    people_info.mobile = mobile
+    people_info.bankcard = bankcard
+    people_info.bankaddr = bankaddr
+    people_info.updated_time = getCurrentDate()
+    # 提交信息
+    try:
+        db.session.add(people_info)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        resp['code'] = -1
+        resp['msg'] = "提交数据库出错"
+        db.session.rollback()
+
+    return jsonify(resp)
 

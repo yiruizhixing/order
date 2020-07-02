@@ -7,7 +7,8 @@ App({
         userInfo: null,
         version: "1.0",
         shopName: "巡考小程序",
-        domain:"http://192.168.244.6:8999/api"
+        //domain:"http://192.168.244.6:8999/api"
+        domain:"https://rsks.gongkao.org.cn/api"
     },
     tip:function( params ){
         var that = this;

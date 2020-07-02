@@ -4,7 +4,7 @@
 <view class="container">
 	<!--考务通知 news-->
 	<view class="main-card-item-bm">
-		<view class="card-item-hd-bm">
+		<view class="card-item-hd-bm" >
 			<image class="card-item-icon-bm" src="/images/home/kb.png"></image>
 			<text class="card-item-name-bm">考务通知</text>
 		</view>
@@ -84,7 +84,7 @@
 	</view>
 	<!-- end -->
 
-	<navigator url="/pages/food/index">原首页</navigator>
-	<navigator url="/pages/my/order_list">原订单列表</navigator>
+	<!-- <navigator url="/pages/food/index">原首页</navigator>
+	<navigator url="/pages/my/order_list">原订单列表</navigator> -->
 
 </view>
