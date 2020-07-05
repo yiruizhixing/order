@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint,request, jsonify, session
-from common.libs.Helper import ops_render, getCurrentDate
+from common.libs.Helper import ops_render, getCurrentDate, iPagination
 from common.models.bm.BmExam import BmExam
-from application import db
+from application import db,app
+from common.models.bm.BmInfo import BmInfo
+from common.models.member.Member import Member
 
 
 route_baoming = Blueprint( 'baoming_page',__name__ )
@@ -104,3 +106,36 @@ def index():
 
     return jsonify(resp)
 
+
+# 报名人员信息管理
+@route_baoming.route( "/manage", methods=["GET", "POST"])
+def manage():
+    resp_data = {}
+    req = request.values
+    page = int(req['p']) if ('p' in req and req['p']) else 1
+    query = BmInfo.query
+
+    if 'mix_kw' in req:  # 搜索处理
+        query = query.filter(BmInfo.name.ilike("%{0}%".format(req['mix_kw'])))
+
+    if 'status' in req and int(req['status']) > -1:
+        query = query.filter(BmInfo.status == int(req['status']))
+
+    page_params = {
+        'total': query.count(),
+        'page_size': app.config['PAGE_SIZE'],
+        'page': page,
+        'display': app.config['PAGE_DISPLAY'],
+        'url': request.full_path.replace("&p={}".format(page), "")
+    }
+    pages = iPagination(page_params)
+    offset = (page - 1) * app.config['PAGE_SIZE']
+    list = query.order_by(BmInfo.id.desc()).offset(offset).limit(app.config['PAGE_SIZE']).all()  # 查出来后 倒序排
+
+    resp_data['list'] = list
+    resp_data['pages'] = pages
+    resp_data['search_con'] = req
+    resp_data['status_mapping'] = app.config['STATUS_MAPPING']
+    resp_data['current'] = 'index'
+
+    return ops_render("baoming/manage.html",resp_data)

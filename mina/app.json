@@ -1,16 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/home/index",    
-    "pages/food/index",
-    "pages/food/info",
-    "pages/order/index",
-    "pages/cart/index",
-    "pages/my/order_list",
-    "pages/my/order_info",
-    "pages/my/addressList",
-    "pages/my/addressSet",
-    "pages/my/commentList",
+    "pages/home/index",      
     "pages/my/index",
     "pages/study/index",
     "pages/study/info",
